@@ -363,7 +363,9 @@ namespace RFExplorerCommunicator
             //TODO: w must be set correctly accroding to f, w can not be 0 !!!!!
 
             double output = 0;
-            for(int i=0;i<511;i++) //TODO: change range according to f
+
+            //use m_fStartFrequencyMHZ, m_fStepFrequencyMHZ ???????
+            for (int i=0;i<511;i++) //TODO: change range according to f
             {
                 //dBm_R2mW_m²(dBm, input, f, dBgain, dBcil, of) = 10 ^ ((dBm + input - dBgain + dBcil) / 10) * (pi4 / wavelength(f) ^ 2) * (1.0 - of)
                 //in mW / m²
