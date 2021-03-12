@@ -80,17 +80,17 @@ namespace RFExplorerClient
                     m_PowerChannelRegion_Low.Dispose();
                     m_PowerChannelRegion_Low = null;
                 }
-                if (m_PowerChannelRegion_Medium!=null)
+                if (m_PowerChannelRegion_Medium != null)
                 {
                     m_PowerChannelRegion_Medium.Dispose();
                     m_PowerChannelRegion_Medium = null;
                 }
-                if (m_PowerChannelText!=null)
+                if (m_PowerChannelText != null)
                 {
                     m_PowerChannelText.Dispose();
                     m_PowerChannelText = null;
                 }
-                if (m_PowerChannelNeedle!=null)
+                if (m_PowerChannelNeedle != null)
                 {
                     m_PowerChannelNeedle.Dispose();
                     m_PowerChannelNeedle = null;
@@ -244,20 +244,8 @@ namespace RFExplorerClient
             this.btnMoveFreqDecLarge = new System.Windows.Forms.Button();
             this.btnMoveFreqIncLarge = new System.Windows.Forms.Button();
             this.m_tabWaterfall = new System.Windows.Forms.TabPage();
-            this.menuContextWaterfall = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuWaterfallContextMaxHold = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuWaterfallContextRealtime = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuWaterfallContextPerspective1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuWaterfallContextPerspective2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuWaterfallContextISO = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuWaterfallContext2D = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuWaterfallContextTransparent = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuWaterfallContextFloor = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuWaterfallContext_saveBitmap = new System.Windows.Forms.ToolStripMenuItem();
             this.m_tabPowerChannel = new System.Windows.Forms.TabPage();
+            this.m_panelAdvancedPowerChannel = new System.Windows.Forms.Panel();
             this.m_panelPowerChannel = new System.Windows.Forms.Panel();
             this.m_tabRemoteScreen = new System.Windows.Forms.TabPage();
             this.m_panelRemoteScreen = new System.Windows.Forms.Panel();
@@ -295,6 +283,19 @@ namespace RFExplorerClient
             this.m_bFillColor = new System.Windows.Forms.Button();
             this.m_tabReport = new System.Windows.Forms.TabPage();
             this.m_ReportTextBox = new System.Windows.Forms.TextBox();
+            this.menuContextWaterfall = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuWaterfallContextMaxHold = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuWaterfallContextRealtime = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuWaterfallContextPerspective1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuWaterfallContextPerspective2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuWaterfallContextISO = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuWaterfallContext2D = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuWaterfallContextTransparent = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuWaterfallContextFloor = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuWaterfallContext_saveBitmap = new System.Windows.Forms.ToolStripMenuItem();
             this.m_MainStatusBar = new System.Windows.Forms.StatusStrip();
             this.toolCOMStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripMemory = new System.Windows.Forms.ToolStripProgressBar();
@@ -328,8 +329,6 @@ namespace RFExplorerClient
             this.m_MainTab.SuspendLayout();
             this.m_tabSpectrumAnalyzer.SuspendLayout();
             this.m_group_CalibrateAmplitudeAnalyzer.SuspendLayout();
-            this.m_tabWaterfall.SuspendLayout();
-            this.menuContextWaterfall.SuspendLayout();
             this.m_tabPowerChannel.SuspendLayout();
             this.m_tabRemoteScreen.SuspendLayout();
             this.m_panelRemoteScreen.SuspendLayout();
@@ -345,6 +344,7 @@ namespace RFExplorerClient
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.m_tabReport.SuspendLayout();
+            this.menuContextWaterfall.SuspendLayout();
             this.m_MainStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMultiGraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSampleDecoder)).BeginInit();
@@ -1249,9 +1249,8 @@ namespace RFExplorerClient
             this.m_MainTab.Controls.Add(this.m_tabRemoteScreen);
             this.m_MainTab.Controls.Add(this.m_tabConfiguration);
             this.m_MainTab.Controls.Add(this.m_tabReport);
-            this.m_MainTab.Dock = System.Windows.Forms.DockStyle.Top;
             this.m_MainTab.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.m_MainTab.Location = new System.Drawing.Point(0, 27);
+            this.m_MainTab.Location = new System.Drawing.Point(0, 28);
             this.m_MainTab.Name = "m_MainTab";
             this.m_MainTab.Padding = new System.Drawing.Point(16, 5);
             this.m_MainTab.SelectedIndex = 0;
@@ -1382,7 +1381,7 @@ namespace RFExplorerClient
             this.m_tableLayoutControlArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.m_tableLayoutControlArea.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.m_tableLayoutControlArea.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
-            this.m_tableLayoutControlArea.Location = new System.Drawing.Point(953, 6);
+            this.m_tableLayoutControlArea.Location = new System.Drawing.Point(692, 19);
             this.m_tableLayoutControlArea.Name = "m_tableLayoutControlArea";
             this.m_tableLayoutControlArea.Size = new System.Drawing.Size(27, 30);
             this.m_tableLayoutControlArea.TabIndex = 51;
@@ -1610,110 +1609,10 @@ namespace RFExplorerClient
             this.m_tabWaterfall.SizeChanged += new System.EventHandler(this.MainTab_ClientSizeChanged);
             this.m_tabWaterfall.Enter += new System.EventHandler(this.tabWaterfall_Enter);
             this.m_tabWaterfall.Resize += new System.EventHandler(this.MainTab_ClientSizeChanged);
-
-            // 
-            // menuContextWaterfall
-            // 
-            this.menuContextWaterfall.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuWaterfallContextMaxHold,
-            this.menuWaterfallContextRealtime,
-            this.toolStripSeparator18,
-            this.menuWaterfallContextPerspective1,
-            this.menuWaterfallContextPerspective2,
-            this.menuWaterfallContextISO,
-            this.menuWaterfallContext2D,
-            this.toolStripSeparator16,
-            this.menuWaterfallContextTransparent,
-            this.menuWaterfallContextFloor,
-            this.toolStripSeparator17,
-            this.menuWaterfallContext_saveBitmap});
-            this.menuContextWaterfall.Name = "contextMenuStrip1";
-            this.menuContextWaterfall.Size = new System.Drawing.Size(219, 220);
-            // 
-            // menuWaterfallContextMaxHold
-            // 
-            this.menuWaterfallContextMaxHold.Name = "menuWaterfallContextMaxHold";
-            this.menuWaterfallContextMaxHold.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContextMaxHold.Text = "Max Hold";
-            this.menuWaterfallContextMaxHold.Click += new System.EventHandler(this.OnWaterfallContextMaxHold_Click);
-            // 
-            // menuWaterfallContextRealtime
-            // 
-            this.menuWaterfallContextRealtime.Name = "menuWaterfallContextRealtime";
-            this.menuWaterfallContextRealtime.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContextRealtime.Text = "Realtime";
-            this.menuWaterfallContextRealtime.Click += new System.EventHandler(this.OnWaterfallContextRealtime_Click);
-            // 
-            // toolStripSeparator18
-            // 
-            this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(215, 6);
-            // 
-            // menuWaterfallContextPerspective1
-            // 
-            this.menuWaterfallContextPerspective1.Checked = true;
-            this.menuWaterfallContextPerspective1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.menuWaterfallContextPerspective1.Name = "menuWaterfallContextPerspective1";
-            this.menuWaterfallContextPerspective1.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContextPerspective1.Text = "Perspective 1";
-            this.menuWaterfallContextPerspective1.Click += new System.EventHandler(this.OnWaterfallPerspective1_Click);
-            // 
-            // menuWaterfallContextPerspective2
-            // 
-            this.menuWaterfallContextPerspective2.Name = "menuWaterfallContextPerspective2";
-            this.menuWaterfallContextPerspective2.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContextPerspective2.Text = "Perspective 2";
-            this.menuWaterfallContextPerspective2.Click += new System.EventHandler(this.OnWaterfallPerspective2_Click);
-            // 
-            // menuWaterfallContextISO
-            // 
-            this.menuWaterfallContextISO.Name = "menuWaterfallContextISO";
-            this.menuWaterfallContextISO.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContextISO.Text = "ISO";
-            this.menuWaterfallContextISO.Click += new System.EventHandler(this.OnWaterfallIsometric_Click);
-            // 
-            // menuWaterfallContext2D
-            // 
-            this.menuWaterfallContext2D.Name = "menuWaterfallContext2D";
-            this.menuWaterfallContext2D.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContext2D.Text = "2D";
-            this.menuWaterfallContext2D.Click += new System.EventHandler(this.OnWaterfall2D_Click);
-            // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(215, 6);
-            // 
-            // menuWaterfallContextTransparent
-            // 
-            this.menuWaterfallContextTransparent.CheckOnClick = true;
-            this.menuWaterfallContextTransparent.Name = "menuWaterfallContextTransparent";
-            this.menuWaterfallContextTransparent.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContextTransparent.Text = "Transparent";
-            this.menuWaterfallContextTransparent.Click += new System.EventHandler(this.OnTransparentWaterfall_Click);
-            // 
-            // menuWaterfallContextFloor
-            // 
-            this.menuWaterfallContextFloor.CheckOnClick = true;
-            this.menuWaterfallContextFloor.Name = "menuWaterfallContextFloor";
-            this.menuWaterfallContextFloor.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContextFloor.Text = "Visible floor";
-            this.menuWaterfallContextFloor.Click += new System.EventHandler(this.OnWaterfallFloor_Click);
-            // 
-            // toolStripSeparator17
-            // 
-            this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(215, 6);
-            // 
-            // menuWaterfallContext_saveBitmap
-            // 
-            this.menuWaterfallContext_saveBitmap.Name = "menuWaterfallContext_saveBitmap";
-            this.menuWaterfallContext_saveBitmap.Size = new System.Drawing.Size(218, 22);
-            this.menuWaterfallContext_saveBitmap.Text = "Save Waterfall Screenshot...";
-            this.menuWaterfallContext_saveBitmap.Click += new System.EventHandler(this.OnSaveImage_Click);
             // 
             // m_tabPowerChannel
             // 
+            this.m_tabPowerChannel.Controls.Add(this.m_panelAdvancedPowerChannel);
             this.m_tabPowerChannel.Controls.Add(this.m_panelPowerChannel);
             this.m_tabPowerChannel.Location = new System.Drawing.Point(4, 26);
             this.m_tabPowerChannel.Name = "m_tabPowerChannel";
@@ -1723,11 +1622,26 @@ namespace RFExplorerClient
             this.m_tabPowerChannel.UseVisualStyleBackColor = true;
             this.m_tabPowerChannel.Enter += new System.EventHandler(this.tabPowerChannel_Enter);
             // 
+            // m_panelAdvancedPowerChannel
+            // 
+            this.m_panelAdvancedPowerChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_panelAdvancedPowerChannel.AutoSize = true;
+            this.m_panelAdvancedPowerChannel.Location = new System.Drawing.Point(521, 14);
+            this.m_panelAdvancedPowerChannel.Name = "m_panelAdvancedPowerChannel";
+            this.m_panelAdvancedPowerChannel.Size = new System.Drawing.Size(100, 100);
+            this.m_panelAdvancedPowerChannel.TabIndex = 1;
+            // 
             // m_panelPowerChannel
             // 
-            this.m_panelPowerChannel.Location = new System.Drawing.Point(169, 101);
+            this.m_panelPowerChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_panelPowerChannel.AutoSize = true;
+            this.m_panelPowerChannel.Location = new System.Drawing.Point(247, 14);
             this.m_panelPowerChannel.Name = "m_panelPowerChannel";
-            this.m_panelPowerChannel.Size = new System.Drawing.Size(200, 100);
+            this.m_panelPowerChannel.Size = new System.Drawing.Size(100, 100);
             this.m_panelPowerChannel.TabIndex = 0;
             // 
             // m_tabRemoteScreen
@@ -2208,6 +2122,106 @@ namespace RFExplorerClient
             this.m_ReportTextBox.TabIndex = 49;
             this.m_ReportTextBox.WordWrap = false;
             // 
+            // menuContextWaterfall
+            // 
+            this.menuContextWaterfall.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuWaterfallContextMaxHold,
+            this.menuWaterfallContextRealtime,
+            this.toolStripSeparator18,
+            this.menuWaterfallContextPerspective1,
+            this.menuWaterfallContextPerspective2,
+            this.menuWaterfallContextISO,
+            this.menuWaterfallContext2D,
+            this.toolStripSeparator16,
+            this.menuWaterfallContextTransparent,
+            this.menuWaterfallContextFloor,
+            this.toolStripSeparator17,
+            this.menuWaterfallContext_saveBitmap});
+            this.menuContextWaterfall.Name = "contextMenuStrip1";
+            this.menuContextWaterfall.Size = new System.Drawing.Size(219, 220);
+            // 
+            // menuWaterfallContextMaxHold
+            // 
+            this.menuWaterfallContextMaxHold.Name = "menuWaterfallContextMaxHold";
+            this.menuWaterfallContextMaxHold.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContextMaxHold.Text = "Max Hold";
+            this.menuWaterfallContextMaxHold.Click += new System.EventHandler(this.OnWaterfallContextMaxHold_Click);
+            // 
+            // menuWaterfallContextRealtime
+            // 
+            this.menuWaterfallContextRealtime.Name = "menuWaterfallContextRealtime";
+            this.menuWaterfallContextRealtime.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContextRealtime.Text = "Realtime";
+            this.menuWaterfallContextRealtime.Click += new System.EventHandler(this.OnWaterfallContextRealtime_Click);
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(215, 6);
+            // 
+            // menuWaterfallContextPerspective1
+            // 
+            this.menuWaterfallContextPerspective1.Checked = true;
+            this.menuWaterfallContextPerspective1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.menuWaterfallContextPerspective1.Name = "menuWaterfallContextPerspective1";
+            this.menuWaterfallContextPerspective1.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContextPerspective1.Text = "Perspective 1";
+            this.menuWaterfallContextPerspective1.Click += new System.EventHandler(this.OnWaterfallPerspective1_Click);
+            // 
+            // menuWaterfallContextPerspective2
+            // 
+            this.menuWaterfallContextPerspective2.Name = "menuWaterfallContextPerspective2";
+            this.menuWaterfallContextPerspective2.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContextPerspective2.Text = "Perspective 2";
+            this.menuWaterfallContextPerspective2.Click += new System.EventHandler(this.OnWaterfallPerspective2_Click);
+            // 
+            // menuWaterfallContextISO
+            // 
+            this.menuWaterfallContextISO.Name = "menuWaterfallContextISO";
+            this.menuWaterfallContextISO.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContextISO.Text = "ISO";
+            this.menuWaterfallContextISO.Click += new System.EventHandler(this.OnWaterfallIsometric_Click);
+            // 
+            // menuWaterfallContext2D
+            // 
+            this.menuWaterfallContext2D.Name = "menuWaterfallContext2D";
+            this.menuWaterfallContext2D.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContext2D.Text = "2D";
+            this.menuWaterfallContext2D.Click += new System.EventHandler(this.OnWaterfall2D_Click);
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(215, 6);
+            // 
+            // menuWaterfallContextTransparent
+            // 
+            this.menuWaterfallContextTransparent.CheckOnClick = true;
+            this.menuWaterfallContextTransparent.Name = "menuWaterfallContextTransparent";
+            this.menuWaterfallContextTransparent.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContextTransparent.Text = "Transparent";
+            this.menuWaterfallContextTransparent.Click += new System.EventHandler(this.OnTransparentWaterfall_Click);
+            // 
+            // menuWaterfallContextFloor
+            // 
+            this.menuWaterfallContextFloor.CheckOnClick = true;
+            this.menuWaterfallContextFloor.Name = "menuWaterfallContextFloor";
+            this.menuWaterfallContextFloor.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContextFloor.Text = "Visible floor";
+            this.menuWaterfallContextFloor.Click += new System.EventHandler(this.OnWaterfallFloor_Click);
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(215, 6);
+            // 
+            // menuWaterfallContext_saveBitmap
+            // 
+            this.menuWaterfallContext_saveBitmap.Name = "menuWaterfallContext_saveBitmap";
+            this.menuWaterfallContext_saveBitmap.Size = new System.Drawing.Size(218, 22);
+            this.menuWaterfallContext_saveBitmap.Text = "Save Waterfall Screenshot...";
+            this.menuWaterfallContext_saveBitmap.Click += new System.EventHandler(this.OnSaveImage_Click);
+            // 
             // m_MainStatusBar
             // 
             this.m_MainStatusBar.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -2469,11 +2483,10 @@ namespace RFExplorerClient
             this.m_tabSpectrumAnalyzer.PerformLayout();
             this.m_group_CalibrateAmplitudeAnalyzer.ResumeLayout(false);
             this.m_group_CalibrateAmplitudeAnalyzer.PerformLayout();
-            this.m_tabWaterfall.ResumeLayout(false);
-            this.menuContextWaterfall.ResumeLayout(false);
             this.m_tabPowerChannel.ResumeLayout(false);
+            this.m_tabPowerChannel.PerformLayout();
             this.m_tabRemoteScreen.ResumeLayout(false);
-			this.m_tabRemoteScreen.PerformLayout();            this.m_panelRemoteScreen.ResumeLayout(false);
+            this.m_panelRemoteScreen.ResumeLayout(false);
             this.m_tabConfiguration.ResumeLayout(false);
             this.m_tabConfiguration.PerformLayout();
             this.m_panelGeneralConfigTab.ResumeLayout(false);
@@ -2495,6 +2508,7 @@ namespace RFExplorerClient
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.m_tabReport.ResumeLayout(false);
             this.m_tabReport.PerformLayout();
+            this.menuContextWaterfall.ResumeLayout(false);
             this.m_MainStatusBar.ResumeLayout(false);
             this.m_MainStatusBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMultiGraph)).EndInit();
@@ -2721,6 +2735,6 @@ namespace RFExplorerClient
         public System.Windows.Forms.Button m_btnCalibrate1G;
         public System.Windows.Forms.Button m_btnCalibrate3G;
         private System.ComponentModel.IContainer components;
+        public System.Windows.Forms.Panel m_panelAdvancedPowerChannel;
     }
 }
-
