@@ -326,6 +326,54 @@ namespace RFExplorerCommunicator
             return fChannelPower;
         }
 
+        public double GetChannelAdvancedPowerDBM()
+        {
+            //double fChannelPower = RFECommunicator.MIN_AMPLITUDE_DBM;
+            //double fPowerTemp = 0.0f;
+
+            //for (UInt16 nInd = 0; nInd < m_nTotalSteps; nInd++)
+            //{
+            //    fPowerTemp += RFECommunicator.Convert_dBm_2_mW(m_arrAmplitude[nInd]);
+            //}
+
+            //if (fPowerTemp > 0.0f)
+            //{
+            //    //add here actual RBW calculation in the future - currently we are assuming frequency step is the same
+            //    //as RBW which is not 100% accurate.
+            //    fChannelPower = RFECommunicator.Convert_mW_2_dBm(fPowerTemp);
+            //}
+
+            //return fChannelPower;
+
+            //fPowerTemp = dBm ???????????????????????????????
+
+            double dBm = 0;//the antenna output in dBm
+            double input = 0; //input correction factor such as attenuation or amplification (in dB)
+            double f = 0; //frequency(in Hz)
+            double dBgain = 0; //the antenna gain (in dB)
+            double dBcil = 0;//cable insertion loss (cil, in dB)
+            double of = 0; // the overlapping factor for FIR filters in adjacent bands ∈[0...<< 1), by default use 0.05
+            double w = 0; //# wavelength(f) is the wavelength on meters given a frequency in Hz, that is, c/f, where c=299792458 in m/s is the speed of light.
+            double pi4 = 4 * Math.PI;
+
+            //set values
+            input = 0.0;
+            of = 0.05;
+            dBgain = 5.0;
+            //TODO: w must be set correctly accroding to f, w can not be 0 !!!!!
+
+            double output = 0;
+            for(int i=0;i<511;i++) //TODO: change range according to f
+            {
+                //dBm_R2mW_m²(dBm, input, f, dBgain, dBcil, of) = 10 ^ ((dBm + input - dBgain + dBcil) / 10) * (pi4 / wavelength(f) ^ 2) * (1.0 - of)
+                //in mW / m²
+                double Irradiance = Math.Pow((dBm + input - dBgain + dBcil) / 10, 10) * (pi4 / Math.Pow(w, 2)) * (1.0 - of);
+                output += Irradiance;
+            }
+
+            return output;
+        }
+
         /// <summary>
         /// Dump a CSV string line with sweep data
         /// </summary>
