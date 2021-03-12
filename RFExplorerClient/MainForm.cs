@@ -223,6 +223,13 @@ namespace RFExplorerClient
         GasGaugeNeedle m_PowerChannelNeedle = null;
         TextObj m_PowerChannelText;
 
+        ZedGraphControl m_graphAdvancedPowerChannel = null;
+        GasGaugeRegion m_AdvancedPowerChannelRegion_Low = null;
+        GasGaugeRegion m_AdvancedPowerChannelRegion_Medium = null;
+        GasGaugeRegion m_AdvancedPowerChannelRegion_High = null;
+        GasGaugeNeedle m_AdvancedPowerChannelNeedle = null;
+        TextObj m_AdvancedPowerChannelText;
+
         Bitmap m_ClipboardBitmap = null; //bitmap object used to copy into clipboard
 
         //The one and only reusable analyzer graph
@@ -4018,17 +4025,39 @@ namespace RFExplorerClient
 
                 if (m_MainTab.SelectedTab == m_tabPowerChannel)
                 {
+                    m_tabPowerChannel.Width = m_MainTab.Width - 5;
+                    var groupBox1 = new GroupBox();
+                    var groupBox2 = new GroupBox();
+
+                    groupBox1.Text = "Power Channel";
+                    groupBox2.Text = "Advanced Power Channel";
+                    groupBox1.Controls.Add(m_panelPowerChannel);
+                    groupBox2.Controls.Add(m_panelAdvancedPowerChannel);
+
+                    m_tabPowerChannel.Controls.Add(groupBox1);
+                    m_tabPowerChannel.Controls.Add(groupBox2);
+
+                    groupBox1.Width = m_tabPowerChannel.Width / 2 - 10;
+                    groupBox2.Width = m_tabPowerChannel.Width / 2 - 10;
+                    groupBox1.Location = new Point(0, m_tableLayoutControlArea.Height + 20);
+                    groupBox2.Location = new Point(m_tabPowerChannel.Width / 2 + 5, m_tableLayoutControlArea.Height + 20);
+                    groupBox1.Height = 800;
+                    groupBox2.Height = 800;
+
                     m_ToolGroup_AnalyzerDataFeed.Visible = true;
 
-                    m_panelPowerChannel.Top = nTop + 5;
+                    #region m_panelPowerChannel
+
+                    m_panelPowerChannel.Height = groupBox1.Height - 20;
                     m_panelPowerChannel.Left = 6;
-                    m_panelPowerChannel.Width = Width - 35;
-                    m_panelPowerChannel.Height = m_MainStatusBar.Top - nTop - 10;
+                    m_panelPowerChannel.Width = groupBox2.Width - 15;
+
                     m_panelPowerChannel.BorderStyle = BorderStyle.FixedSingle;
 
                     double dMin = m_objRFEAnalyzer.AmplitudeBottomDBM;
                     double dMax = m_objRFEAnalyzer.AmplitudeTopDBM;
 
+                    //Set Min and Max value for these two controls
                     m_PowerChannelRegion_Low.MinValue = dMin;
                     m_PowerChannelRegion_Low.MaxValue = dMin + ((dMax - dMin) * 0.25);
                     m_PowerChannelRegion_High.MinValue = dMin + ((dMax - dMin) * 0.75);
@@ -4037,8 +4066,28 @@ namespace RFExplorerClient
                     m_PowerChannelRegion_Medium.MinValue = m_PowerChannelRegion_Low.MaxValue;
                     m_PowerChannelRegion_Medium.MaxValue = m_PowerChannelRegion_High.MinValue;
 
-                    m_panelPowerChannel.Left = 5;
-                    //m_graphPowerChannel.Width = m_panelPowerChannel.Width - 10;
+                    #endregion
+
+                    #region m_panelAdvancedPowerChannel
+
+                    m_panelAdvancedPowerChannel.Height = groupBox2.Height - 20;
+                    m_panelAdvancedPowerChannel.Left = 6;
+                    m_panelAdvancedPowerChannel.Width = groupBox2.Width - 15;
+
+                    m_panelAdvancedPowerChannel.BorderStyle = BorderStyle.FixedSingle;
+
+                    dMin = m_objRFEAnalyzer.AmplitudeBottomDBM;
+                    dMax = m_objRFEAnalyzer.AmplitudeTopDBM;
+
+                    //Set Min and Max value for these two controls
+                    m_AdvancedPowerChannelRegion_Low.MinValue = dMin;
+                    m_AdvancedPowerChannelRegion_Low.MaxValue = dMin + ((dMax - dMin) * 0.25);
+                    m_AdvancedPowerChannelRegion_High.MinValue = dMin + ((dMax - dMin) * 0.75);
+                    m_AdvancedPowerChannelRegion_High.MaxValue = dMax;
+
+                    m_AdvancedPowerChannelRegion_Medium.MinValue = m_AdvancedPowerChannelRegion_Low.MaxValue;
+                    m_AdvancedPowerChannelRegion_Medium.MaxValue = m_AdvancedPowerChannelRegion_High.MinValue;
+                    #endregion
                 }
 
                 if (m_MainTab.SelectedTab == m_tabReport)
@@ -4557,6 +4606,85 @@ namespace RFExplorerClient
                 m_graphPowerChannel.GraphPane.Chart.Border.IsVisible = false;
                 m_graphPowerChannel.GraphPane.Clockwise = true;
                 m_graphPowerChannel.AxisChange();
+            }
+
+            if (m_graphAdvancedPowerChannel == null)
+            {
+                m_graphAdvancedPowerChannel = new ZedGraphControl();
+                m_panelAdvancedPowerChannel.Controls.Add(m_graphAdvancedPowerChannel);
+                m_graphAdvancedPowerChannel.EditButtons = System.Windows.Forms.MouseButtons.Left;
+                m_graphAdvancedPowerChannel.IsAntiAlias = true;
+                m_graphAdvancedPowerChannel.IsEnableSelection = false;
+                //m_graphAdvancedPowerChannel.Location = new System.Drawing.Point(5, 5);
+                m_graphAdvancedPowerChannel.Name = "zedPowerChannel";
+                m_graphAdvancedPowerChannel.ScrollGrace = 0D;
+                m_graphAdvancedPowerChannel.ScrollMaxX = 0D;
+                m_graphAdvancedPowerChannel.ScrollMaxY = 0D;
+                m_graphAdvancedPowerChannel.ScrollMaxY2 = 0D;
+                m_graphAdvancedPowerChannel.ScrollMinX = 0D;
+                m_graphAdvancedPowerChannel.ScrollMinY = 0D;
+                m_graphAdvancedPowerChannel.ScrollMinY2 = 0D;
+                //m_graphAdvancedPowerChannel.Size = new System.Drawing.Size(600, 300);
+                m_graphAdvancedPowerChannel.TabIndex = 49;
+                m_graphAdvancedPowerChannel.TabStop = false;
+                m_graphAdvancedPowerChannel.UseExtendedPrintDialog = true;
+                m_graphAdvancedPowerChannel.Visible = true;
+                m_graphAdvancedPowerChannel.GraphPane.Title.Text = "RF Explorer Advanced Channel Power Meter";
+                m_graphAdvancedPowerChannel.GraphPane.Title.FontSpec.Size = 18f;
+                m_graphAdvancedPowerChannel.GraphPane.TitleGap = 6;
+                m_graphAdvancedPowerChannel.Dock = DockStyle.Fill;
+                m_graphAdvancedPowerChannel.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.objGraphPowerChannel_ContextMenuBuilder);
+                //m_graphSpectrumAnalyzer.ZoomEvent += new ZedGraph.ZedGraphControl.ZoomEventHandler(this.zedSpectrumAnalyzer_ZoomEvent);
+
+                m_graphAdvancedPowerChannel.GraphPane.XAxis.IsVisible = false;
+                m_graphAdvancedPowerChannel.GraphPane.Y2Axis.IsVisible = false;
+                m_graphAdvancedPowerChannel.GraphPane.YAxis.IsVisible = false;
+                m_graphAdvancedPowerChannel.GraphPane.Border.IsVisible = false;
+
+                //Define needles; can add more than one
+                m_AdvancedPowerChannelNeedle = new GasGaugeNeedle("Realtime", -30.0f, Color.Blue);
+                m_AdvancedPowerChannelNeedle.NeedleWidth = 10f;
+                m_AdvancedPowerChannelNeedle.NeedleColor = Color.Blue;
+                m_AdvancedPowerChannelNeedle.Label.IsVisible = false;
+                m_AdvancedPowerChannelNeedle.LineCap = LineCap.ArrowAnchor;
+                m_graphAdvancedPowerChannel.GraphPane.CurveList.Add(m_AdvancedPowerChannelNeedle);
+
+                //Define all regions
+                m_AdvancedPowerChannelRegion_Low = new GasGaugeRegion("Low", -120.0f, -90.0f, Color.Blue);
+                m_AdvancedPowerChannelRegion_Low.HasLabel = true;
+                m_AdvancedPowerChannelRegion_Medium = new GasGaugeRegion("Medium", -90.0f, -30.0f, Color.LightBlue);
+                m_AdvancedPowerChannelRegion_High = new GasGaugeRegion("High", -30.0f, 0.0f, Color.Red);
+                m_AdvancedPowerChannelRegion_High.HasLabel = true;
+                m_AdvancedPowerChannelRegion_Low.Label.IsVisible = false;
+                m_AdvancedPowerChannelRegion_Medium.Label.IsVisible = false;
+                m_AdvancedPowerChannelRegion_High.Label.IsVisible = false;
+
+                m_AdvancedPowerChannelText = new TextObj("No data available", 0.5, 0.25, CoordType.PaneFraction);
+                m_AdvancedPowerChannelText.IsClippedToChartRect = false;
+                m_AdvancedPowerChannelText.FontSpec.FontColor = Color.DarkBlue;
+                m_AdvancedPowerChannelText.Location.AlignH = AlignH.Center;
+                m_AdvancedPowerChannelText.Location.AlignV = AlignV.Center;
+                m_AdvancedPowerChannelText.FontSpec.IsBold = false;
+                m_AdvancedPowerChannelText.FontSpec.Size = 16f;
+                m_AdvancedPowerChannelText.FontSpec.Border.IsVisible = false;
+                m_AdvancedPowerChannelText.FontSpec.Fill.IsVisible = false;
+                m_AdvancedPowerChannelText.FontSpec.StringAlignment = StringAlignment.Center;
+                m_AdvancedPowerChannelText.FontSpec.Family = "Arial";
+                m_graphAdvancedPowerChannel.GraphPane.GraphObjList.Add(m_PowerChannelText);
+
+                // Add the curves
+                m_graphAdvancedPowerChannel.GraphPane.CurveList.Add(m_AdvancedPowerChannelRegion_Low);
+                m_graphAdvancedPowerChannel.GraphPane.CurveList.Add(m_AdvancedPowerChannelRegion_Medium);
+                m_graphAdvancedPowerChannel.GraphPane.CurveList.Add(m_AdvancedPowerChannelRegion_High);
+                m_graphAdvancedPowerChannel.GraphPane.Angle = 150;
+                m_graphAdvancedPowerChannel.GraphPane.GasGaugeRegionWidth = 25;
+                m_graphAdvancedPowerChannel.GraphPane.GasGaugeBorder = false;
+                m_graphAdvancedPowerChannel.GraphPane.ShowGasGaugeValueLabel = false; //needs better code to paint value + unit
+                m_graphAdvancedPowerChannel.GraphPane.HasLabel = false; //needs better code to paint values
+                m_graphAdvancedPowerChannel.GraphPane.Border.IsVisible = false;
+                m_graphAdvancedPowerChannel.GraphPane.Chart.Border.IsVisible = false;
+                m_graphAdvancedPowerChannel.GraphPane.Clockwise = true;
+                m_graphAdvancedPowerChannel.AxisChange();
             }
 
             DisplayGroups();
