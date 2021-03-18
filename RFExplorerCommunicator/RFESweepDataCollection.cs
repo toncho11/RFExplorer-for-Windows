@@ -326,7 +326,7 @@ namespace RFExplorerCommunicator
             return fChannelPower;
         }
 
-        public double GetChannelAdvancedPowerDBM()
+        public double GetIrradianceDBM()
         {
             //double fChannelPower = RFECommunicator.MIN_AMPLITUDE_DBM;
             //double fPowerTemp = 0.0f;
@@ -360,20 +360,21 @@ namespace RFExplorerCommunicator
             input = 0.0;
             of = 0.05;
             dBgain = 5.0;
-            //TODO: w must be set correctly accroding to f, w can not be 0 !!!!!
+            double c = 299.792458; //speed of light
 
-            double output = 0;
+            double fIrradiance = 0.0f;
+            //double temp = ((EndFrequencyMHZ - m_fStartFrequencyMHZ) / m_nTotalSteps) / 2.0f;
 
-            //use m_fStartFrequencyMHZ, m_fStepFrequencyMHZ ???????
-            for (int i=0;i<511;i++) //TODO: change range according to f
+            for (UInt16 nInd = 0; nInd < m_nTotalSteps; nInd++)
             {
-                //dBm_R2mW_m²(dBm, input, f, dBgain, dBcil, of) = 10 ^ ((dBm + input - dBgain + dBcil) / 10) * (pi4 / wavelength(f) ^ 2) * (1.0 - of)
-                //in mW / m²
-                double Irradiance = Math.Pow((dBm + input - dBgain + dBcil) / 10, 10) * (pi4 / Math.Pow(w, 2)) * (1.0 - of);
-                output += Irradiance;
+                f = m_fStartFrequencyMHZ + (m_fStepFrequencyMHZ * nInd);// + temp; // m_fStepFrequencyMHZ / 2.0f);
+                w = c / f;  
+                dBm = m_arrAmplitude[nInd];
+                double tempIrradiance = Math.Pow( (dBm + input - dBgain + dBcil) / 10, 10) * (pi4 / Math.Pow(w, 2)) * (1.0 - of);
+                fIrradiance += tempIrradiance;
             }
 
-            return output;
+            return fIrradiance; // mW/m² - miliwatt/m2
         }
 
         /// <summary>

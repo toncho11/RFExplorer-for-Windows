@@ -2836,9 +2836,47 @@ namespace RFExplorerClient
                         fPowerDBM = objSweep.GetChannelPowerDBM();
                     }
 
+                    #region TESTING
+                    double fIrradiance = objSweep.GetIrradianceDBM(); //mW/m² - miliwatt/m2
+                    double fIrradiaceWatt = fIrradiance /= 1000.0f;
+                    string sWatt = " Watt";
+                    if (fIrradiaceWatt < 0.5E-9)
+                    {
+                        fIrradiaceWatt *= 1E12;
+                        sWatt = " pW";
+                    }
+                    else if (fIrradiaceWatt < 0.5E-6)
+                    {
+                        fIrradiaceWatt *= 1E9;
+                        sWatt = " nW";
+                    }
+                    else if (fIrradiaceWatt < 0.5E-3)
+                    {
+                        fIrradiaceWatt *= 1E6;
+                        sWatt = " uW";
+                    }
+                    else if (fIrradiaceWatt < 0.5f)
+                    {
+                        fIrradiaceWatt *= 1E3;
+                        sWatt = " mW";
+                    }
+
+                    //TODO: max and min are not set correctly for the fIrradiance needle
+                    m_AdvancedPowerChannelNeedle.NeedleValue = fIrradiance;
+
+                    //TODO mode is not taken into account
+                    m_AdvancedPowerChannelText.Text = sPowerMode +
+                         "\nChannel Irradiance: " + fIrradiaceWatt.ToString("f1") + sWatt +
+                         "\nChannel Center: " + objSweep.GetFrequencyMHZ((ushort)(objSweep.TotalSteps / 2)).ToString("f3") + " MHz" +
+                         "\nChannel Bandwidth: " + objSweep.GetFrequencySpanMHZ().ToString("f3") + " MHz";
+
+                    m_graphAdvancedPowerChannel.Refresh();
+                    #endregion
+                    //=================================================================
+
                     double fPowerWatt = RFECommunicator.Convert_dBm_2_Watt(fPowerDBM);
                     double fPowerDensityDBM = RFECommunicator.Convert_Watt_2_dBm(fPowerWatt / (objSweep.GetFrequencySpanMHZ() * 1E6));
-                    string sWatt = " Watt";
+                    sWatt = " Watt";
                     if (fPowerWatt < 0.5E-9)
                     {
                         fPowerWatt *= 1E12;
