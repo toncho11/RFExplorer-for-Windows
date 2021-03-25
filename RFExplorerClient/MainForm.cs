@@ -223,12 +223,12 @@ namespace RFExplorerClient
         GasGaugeNeedle m_PowerChannelNeedle = null;
         TextObj m_PowerChannelText;
 
-        ZedGraphControl m_graphAdvancedPowerChannel = null;
-        GasGaugeRegion m_AdvancedPowerChannelRegion_Low = null;
-        GasGaugeRegion m_AdvancedPowerChannelRegion_Medium = null;
-        GasGaugeRegion m_AdvancedPowerChannelRegion_High = null;
-        GasGaugeNeedle m_AdvancedPowerChannelNeedle = null;
-        TextObj m_AdvancedPowerChannelText;
+        ZedGraphControl m_graphIrradiationChannel = null;
+        GasGaugeRegion m_IrradiationChannelRegion_Low = null;
+        GasGaugeRegion m_IrradiationChannelRegion_Medium = null;
+        GasGaugeRegion m_IrradiationChannelRegion_High = null;
+        GasGaugeNeedle m_IrradiationChannelNeedle = null;
+        TextObj m_IrradiationChannelText;
 
         Bitmap m_ClipboardBitmap = null; //bitmap object used to copy into clipboard
 
@@ -809,6 +809,7 @@ namespace RFExplorerClient
                 m_tabWaterfall.BackColor = BackgroundColor;
                 m_tabRFGen.BackColor = BackgroundColor;
                 m_tabPowerChannel.BackColor = BackgroundColor;
+                m_tabIrradiation.BackColor = BackgroundColor;
 
                 myPaneTracking.Fill = FillColorTracking;
                 myPaneTracking.Chart.Fill = FillColorTracking;
@@ -2235,7 +2236,7 @@ namespace RFExplorerClient
                     }
                     else
                     {
-                        if ((m_MainTab.SelectedTab == m_tabSpectrumAnalyzer) || (m_MainTab.SelectedTab == m_tabPowerChannel))
+                        if ((m_MainTab.SelectedTab == m_tabSpectrumAnalyzer) || (m_MainTab.SelectedTab == m_tabPowerChannel) || (m_MainTab.SelectedTab == m_tabIrradiation))
                         {
                             DisplaySpectrumAnalyzerData();
                         }
@@ -2836,47 +2837,9 @@ namespace RFExplorerClient
                         fPowerDBM = objSweep.GetChannelPowerDBM();
                     }
 
-                    #region TESTING
-                    double fIrradiance = objSweep.GetIrradianceDBM(); //mW/m² - miliwatt/m2
-                    double fIrradiaceWatt = fIrradiance /= 1000.0f;
-                    string sWatt = " Watt";
-                    if (fIrradiaceWatt < 0.5E-9)
-                    {
-                        fIrradiaceWatt *= 1E12;
-                        sWatt = " pW";
-                    }
-                    else if (fIrradiaceWatt < 0.5E-6)
-                    {
-                        fIrradiaceWatt *= 1E9;
-                        sWatt = " nW";
-                    }
-                    else if (fIrradiaceWatt < 0.5E-3)
-                    {
-                        fIrradiaceWatt *= 1E6;
-                        sWatt = " uW";
-                    }
-                    else if (fIrradiaceWatt < 0.5f)
-                    {
-                        fIrradiaceWatt *= 1E3;
-                        sWatt = " mW";
-                    }
-
-                    //TODO: max and min are not set correctly for the fIrradiance needle
-                    m_AdvancedPowerChannelNeedle.NeedleValue = fIrradiance;
-
-                    //TODO mode is not taken into account
-                    m_AdvancedPowerChannelText.Text = sPowerMode +
-                         "\nChannel Irradiance: " + fIrradiaceWatt.ToString("f1") + sWatt +
-                         "\nChannel Center: " + objSweep.GetFrequencyMHZ((ushort)(objSweep.TotalSteps / 2)).ToString("f3") + " MHz" +
-                         "\nChannel Bandwidth: " + objSweep.GetFrequencySpanMHZ().ToString("f3") + " MHz";
-
-                    m_graphAdvancedPowerChannel.Refresh();
-                    #endregion
-                    //=================================================================
-
                     double fPowerWatt = RFECommunicator.Convert_dBm_2_Watt(fPowerDBM);
                     double fPowerDensityDBM = RFECommunicator.Convert_Watt_2_dBm(fPowerWatt / (objSweep.GetFrequencySpanMHZ() * 1E6));
-                    sWatt = " Watt";
+                    string sWatt = " Watt";
                     if (fPowerWatt < 0.5E-9)
                     {
                         fPowerWatt *= 1E12;
@@ -2907,6 +2870,48 @@ namespace RFExplorerClient
                          "\nChannel Bandwidth: " + objSweep.GetFrequencySpanMHZ().ToString("f3") + " MHz";
 
                     m_graphPowerChannel.Refresh();
+                }
+
+                if (m_MainTab.SelectedTab == m_tabIrradiation) //NEW TAB
+                {
+                    string sPowerMode = "Irradiation Data Mode: ";
+
+                    //TODO mode is not configured, we use directly real-time
+                    sPowerMode += "Realtime";
+
+                    double fIrradiance = objSweep.GetIrradianceDBM(); //mW/m² - miliwatt/m2
+                    double fIrradiaceWatt = fIrradiance /= 1000.0f;
+                    string sWatt = " Watt";
+                    if (fIrradiaceWatt < 0.5E-9)
+                    {
+                        fIrradiaceWatt *= 1E12;
+                        sWatt = " pW";
+                    }
+                    else if (fIrradiaceWatt < 0.5E-6)
+                    {
+                        fIrradiaceWatt *= 1E9;
+                        sWatt = " nW";
+                    }
+                    else if (fIrradiaceWatt < 0.5E-3)
+                    {
+                        fIrradiaceWatt *= 1E6;
+                        sWatt = " uW";
+                    }
+                    else if (fIrradiaceWatt < 0.5f)
+                    {
+                        fIrradiaceWatt *= 1E3;
+                        sWatt = " mW";
+                    }
+
+                    //TODO: max and min are not set correctly for the fIrradiance needle
+                    m_IrradiationChannelNeedle.NeedleValue = fIrradiance;
+
+                    m_IrradiationChannelText.Text = sPowerMode +
+                         "\nChannel Irradiance: " + fIrradiaceWatt.ToString("f1") + sWatt +
+                         "\nChannel Center: " + objSweep.GetFrequencyMHZ((ushort)(objSweep.TotalSteps / 2)).ToString("f3") + " MHz" +
+                         "\nChannel Bandwidth: " + objSweep.GetFrequencySpanMHZ().ToString("f3") + " MHz";
+
+                    m_graphIrradiationChannel.Refresh();
                 }
             }
             else
@@ -3058,7 +3063,7 @@ namespace RFExplorerClient
 
         private void OnSweepIndexChanged(object sender, EventArgs e)
         {
-            if ((m_MainTab.SelectedTab == m_tabSpectrumAnalyzer) || (m_MainTab.SelectedTab == m_tabPowerChannel))
+            if ((m_MainTab.SelectedTab == m_tabSpectrumAnalyzer) || (m_MainTab.SelectedTab == m_tabPowerChannel) || (m_MainTab.SelectedTab == m_tabIrradiation))
             {
                 DisplaySpectrumAnalyzerData();
                 if (menuPlaceWaterfallAtBottom.Checked || menuPlaceWaterfallOnTheRight.Checked) //Split screen
@@ -4063,39 +4068,17 @@ namespace RFExplorerClient
 
                 if (m_MainTab.SelectedTab == m_tabPowerChannel)
                 {
-                    m_tabPowerChannel.Width = m_MainTab.Width - 5;
-                    var groupBox1 = new GroupBox();
-                    var groupBox2 = new GroupBox();
-
-                    groupBox1.Text = "Power Channel";
-                    groupBox2.Text = "Advanced Power Channel";
-                    groupBox1.Controls.Add(m_panelPowerChannel);
-                    groupBox2.Controls.Add(m_panelAdvancedPowerChannel);
-
-                    m_tabPowerChannel.Controls.Add(groupBox1);
-                    m_tabPowerChannel.Controls.Add(groupBox2);
-
-                    groupBox1.Width = m_tabPowerChannel.Width / 2 - 10;
-                    groupBox2.Width = m_tabPowerChannel.Width / 2 - 10;
-                    groupBox1.Location = new Point(0, m_tableLayoutControlArea.Height + 20);
-                    groupBox2.Location = new Point(m_tabPowerChannel.Width / 2 + 5, m_tableLayoutControlArea.Height + 20);
-                    groupBox1.Height = 800;
-                    groupBox2.Height = 800;
-
                     m_ToolGroup_AnalyzerDataFeed.Visible = true;
 
-                    #region m_panelPowerChannel
-
-                    m_panelPowerChannel.Height = groupBox1.Height - 20;
+                    m_panelPowerChannel.Top = nTop + 5;
                     m_panelPowerChannel.Left = 6;
-                    m_panelPowerChannel.Width = groupBox2.Width - 15;
-
+                    m_panelPowerChannel.Width = Width - 35;
+                    m_panelPowerChannel.Height = m_MainStatusBar.Top - nTop - 10;
                     m_panelPowerChannel.BorderStyle = BorderStyle.FixedSingle;
 
                     double dMin = m_objRFEAnalyzer.AmplitudeBottomDBM;
                     double dMax = m_objRFEAnalyzer.AmplitudeTopDBM;
 
-                    //Set Min and Max value for these two controls
                     m_PowerChannelRegion_Low.MinValue = dMin;
                     m_PowerChannelRegion_Low.MaxValue = dMin + ((dMax - dMin) * 0.25);
                     m_PowerChannelRegion_High.MinValue = dMin + ((dMax - dMin) * 0.75);
@@ -4104,28 +4087,33 @@ namespace RFExplorerClient
                     m_PowerChannelRegion_Medium.MinValue = m_PowerChannelRegion_Low.MaxValue;
                     m_PowerChannelRegion_Medium.MaxValue = m_PowerChannelRegion_High.MinValue;
 
-                    #endregion
+                    m_panelPowerChannel.Left = 5;
+                    //m_graphPowerChannel.Width = m_panelPowerChannel.Width - 10;
+                }
 
-                    #region m_panelAdvancedPowerChannel
+                if (m_MainTab.SelectedTab == m_tabIrradiation)
+                {
+                    m_ToolGroup_AnalyzerDataFeed.Visible = true;
 
-                    m_panelAdvancedPowerChannel.Height = groupBox2.Height - 20;
-                    m_panelAdvancedPowerChannel.Left = 6;
-                    m_panelAdvancedPowerChannel.Width = groupBox2.Width - 15;
+                    m_panelIrradationChannel.Top = nTop + 5;
+                    m_panelIrradationChannel.Left = 6;
+                    m_panelIrradationChannel.Width = Width - 35;
+                    m_panelIrradationChannel.Height = m_MainStatusBar.Top - nTop - 10;
+                    m_panelIrradationChannel.BorderStyle = BorderStyle.FixedSingle;
 
-                    m_panelAdvancedPowerChannel.BorderStyle = BorderStyle.FixedSingle;
+                    double dMin = m_objRFEAnalyzer.AmplitudeBottomDBM;
+                    double dMax = m_objRFEAnalyzer.AmplitudeTopDBM;
 
-                    dMin = m_objRFEAnalyzer.AmplitudeBottomDBM;
-                    dMax = m_objRFEAnalyzer.AmplitudeTopDBM;
+                    m_IrradiationChannelRegion_Low.MinValue = dMin;
+                    m_IrradiationChannelRegion_Low.MaxValue = dMin + ((dMax - dMin) * 0.25);
+                    m_IrradiationChannelRegion_High.MinValue = dMin + ((dMax - dMin) * 0.75);
+                    m_IrradiationChannelRegion_High.MaxValue = dMax;
 
-                    //Set Min and Max value for these two controls
-                    m_AdvancedPowerChannelRegion_Low.MinValue = dMin;
-                    m_AdvancedPowerChannelRegion_Low.MaxValue = dMin + ((dMax - dMin) * 0.25);
-                    m_AdvancedPowerChannelRegion_High.MinValue = dMin + ((dMax - dMin) * 0.75);
-                    m_AdvancedPowerChannelRegion_High.MaxValue = dMax;
+                    m_IrradiationChannelRegion_Medium.MinValue = m_IrradiationChannelRegion_Low.MaxValue;
+                    m_IrradiationChannelRegion_Medium.MaxValue = m_IrradiationChannelRegion_High.MinValue;
 
-                    m_AdvancedPowerChannelRegion_Medium.MinValue = m_AdvancedPowerChannelRegion_Low.MaxValue;
-                    m_AdvancedPowerChannelRegion_Medium.MaxValue = m_AdvancedPowerChannelRegion_High.MinValue;
-                    #endregion
+                    m_panelIrradationChannel.Left = 5;
+                    //m_graphPowerChannel.Width = m_panelPowerChannel.Width - 10;
                 }
 
                 if (m_MainTab.SelectedTab == m_tabReport)
@@ -4646,90 +4634,113 @@ namespace RFExplorerClient
                 m_graphPowerChannel.AxisChange();
             }
 
-            if (m_graphAdvancedPowerChannel == null)
-            {
-                m_graphAdvancedPowerChannel = new ZedGraphControl();
-                m_panelAdvancedPowerChannel.Controls.Add(m_graphAdvancedPowerChannel);
-                m_graphAdvancedPowerChannel.EditButtons = System.Windows.Forms.MouseButtons.Left;
-                m_graphAdvancedPowerChannel.IsAntiAlias = true;
-                m_graphAdvancedPowerChannel.IsEnableSelection = false;
-                //m_graphAdvancedPowerChannel.Location = new System.Drawing.Point(5, 5);
-                m_graphAdvancedPowerChannel.Name = "zedPowerChannel";
-                m_graphAdvancedPowerChannel.ScrollGrace = 0D;
-                m_graphAdvancedPowerChannel.ScrollMaxX = 0D;
-                m_graphAdvancedPowerChannel.ScrollMaxY = 0D;
-                m_graphAdvancedPowerChannel.ScrollMaxY2 = 0D;
-                m_graphAdvancedPowerChannel.ScrollMinX = 0D;
-                m_graphAdvancedPowerChannel.ScrollMinY = 0D;
-                m_graphAdvancedPowerChannel.ScrollMinY2 = 0D;
-                //m_graphAdvancedPowerChannel.Size = new System.Drawing.Size(600, 300);
-                m_graphAdvancedPowerChannel.TabIndex = 49;
-                m_graphAdvancedPowerChannel.TabStop = false;
-                m_graphAdvancedPowerChannel.UseExtendedPrintDialog = true;
-                m_graphAdvancedPowerChannel.Visible = true;
-                m_graphAdvancedPowerChannel.GraphPane.Title.Text = "RF Explorer Advanced Channel Power Meter";
-                m_graphAdvancedPowerChannel.GraphPane.Title.FontSpec.Size = 18f;
-                m_graphAdvancedPowerChannel.GraphPane.TitleGap = 6;
-                m_graphAdvancedPowerChannel.Dock = DockStyle.Fill;
-                m_graphAdvancedPowerChannel.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.objGraphPowerChannel_ContextMenuBuilder);
-                //m_graphSpectrumAnalyzer.ZoomEvent += new ZedGraph.ZedGraphControl.ZoomEventHandler(this.zedSpectrumAnalyzer_ZoomEvent);
-
-                m_graphAdvancedPowerChannel.GraphPane.XAxis.IsVisible = false;
-                m_graphAdvancedPowerChannel.GraphPane.Y2Axis.IsVisible = false;
-                m_graphAdvancedPowerChannel.GraphPane.YAxis.IsVisible = false;
-                m_graphAdvancedPowerChannel.GraphPane.Border.IsVisible = false;
-
-                //Define needles; can add more than one
-                m_AdvancedPowerChannelNeedle = new GasGaugeNeedle("Realtime", -30.0f, Color.Blue);
-                m_AdvancedPowerChannelNeedle.NeedleWidth = 10f;
-                m_AdvancedPowerChannelNeedle.NeedleColor = Color.Blue;
-                m_AdvancedPowerChannelNeedle.Label.IsVisible = false;
-                m_AdvancedPowerChannelNeedle.LineCap = LineCap.ArrowAnchor;
-                m_graphAdvancedPowerChannel.GraphPane.CurveList.Add(m_AdvancedPowerChannelNeedle);
-
-                //Define all regions
-                m_AdvancedPowerChannelRegion_Low = new GasGaugeRegion("Low", -120.0f, -90.0f, Color.Blue);
-                m_AdvancedPowerChannelRegion_Low.HasLabel = true;
-                m_AdvancedPowerChannelRegion_Medium = new GasGaugeRegion("Medium", -90.0f, -30.0f, Color.LightBlue);
-                m_AdvancedPowerChannelRegion_High = new GasGaugeRegion("High", -30.0f, 0.0f, Color.Red);
-                m_AdvancedPowerChannelRegion_High.HasLabel = true;
-                m_AdvancedPowerChannelRegion_Low.Label.IsVisible = false;
-                m_AdvancedPowerChannelRegion_Medium.Label.IsVisible = false;
-                m_AdvancedPowerChannelRegion_High.Label.IsVisible = false;
-
-                m_AdvancedPowerChannelText = new TextObj("No data available", 0.5, 0.25, CoordType.PaneFraction);
-                m_AdvancedPowerChannelText.IsClippedToChartRect = false;
-                m_AdvancedPowerChannelText.FontSpec.FontColor = Color.DarkBlue;
-                m_AdvancedPowerChannelText.Location.AlignH = AlignH.Center;
-                m_AdvancedPowerChannelText.Location.AlignV = AlignV.Center;
-                m_AdvancedPowerChannelText.FontSpec.IsBold = false;
-                m_AdvancedPowerChannelText.FontSpec.Size = 16f;
-                m_AdvancedPowerChannelText.FontSpec.Border.IsVisible = false;
-                m_AdvancedPowerChannelText.FontSpec.Fill.IsVisible = false;
-                m_AdvancedPowerChannelText.FontSpec.StringAlignment = StringAlignment.Center;
-                m_AdvancedPowerChannelText.FontSpec.Family = "Arial";
-                m_graphAdvancedPowerChannel.GraphPane.GraphObjList.Add(m_PowerChannelText);
-
-                // Add the curves
-                m_graphAdvancedPowerChannel.GraphPane.CurveList.Add(m_AdvancedPowerChannelRegion_Low);
-                m_graphAdvancedPowerChannel.GraphPane.CurveList.Add(m_AdvancedPowerChannelRegion_Medium);
-                m_graphAdvancedPowerChannel.GraphPane.CurveList.Add(m_AdvancedPowerChannelRegion_High);
-                m_graphAdvancedPowerChannel.GraphPane.Angle = 150;
-                m_graphAdvancedPowerChannel.GraphPane.GasGaugeRegionWidth = 25;
-                m_graphAdvancedPowerChannel.GraphPane.GasGaugeBorder = false;
-                m_graphAdvancedPowerChannel.GraphPane.ShowGasGaugeValueLabel = false; //needs better code to paint value + unit
-                m_graphAdvancedPowerChannel.GraphPane.HasLabel = false; //needs better code to paint values
-                m_graphAdvancedPowerChannel.GraphPane.Border.IsVisible = false;
-                m_graphAdvancedPowerChannel.GraphPane.Chart.Border.IsVisible = false;
-                m_graphAdvancedPowerChannel.GraphPane.Clockwise = true;
-                m_graphAdvancedPowerChannel.AxisChange();
-            }
-
             DisplayGroups();
             m_tabPowerChannel.Invalidate();
         }
 
+        private void tabIrradiationChannel_Enter(object sender, EventArgs e)
+        {
+            if (m_graphIrradiationChannel == null)
+            {
+                m_graphIrradiationChannel = new ZedGraphControl();
+                m_panelIrradationChannel.Controls.Add(m_graphIrradiationChannel);
+                m_graphIrradiationChannel.EditButtons = System.Windows.Forms.MouseButtons.Left;
+                m_graphIrradiationChannel.IsAntiAlias = true;
+                m_graphIrradiationChannel.IsEnableSelection = false;
+                m_graphIrradiationChannel.Location = new System.Drawing.Point(5, 5);
+                m_graphIrradiationChannel.Name = "zedIrradiationChannel";
+                m_graphIrradiationChannel.ScrollGrace = 0D;
+                m_graphIrradiationChannel.ScrollMaxX = 0D;
+                m_graphIrradiationChannel.ScrollMaxY = 0D;
+                m_graphIrradiationChannel.ScrollMaxY2 = 0D;
+                m_graphIrradiationChannel.ScrollMinX = 0D;
+                m_graphIrradiationChannel.ScrollMinY = 0D;
+                m_graphIrradiationChannel.ScrollMinY2 = 0D;
+                m_graphIrradiationChannel.Size = new System.Drawing.Size(600, 300);
+                m_graphIrradiationChannel.TabIndex = 49;
+                m_graphIrradiationChannel.TabStop = false;
+                m_graphIrradiationChannel.UseExtendedPrintDialog = true;
+                m_graphIrradiationChannel.Visible = true;
+                m_graphIrradiationChannel.GraphPane.Title.Text = "RF Explorer Irradiation Meter";
+                m_graphIrradiationChannel.GraphPane.Title.FontSpec.Size = 18f;
+                m_graphIrradiationChannel.GraphPane.TitleGap = 6;
+                m_graphIrradiationChannel.Dock = DockStyle.Fill;
+                m_graphIrradiationChannel.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.objGraphIrradiationChannel_ContextMenuBuilder);
+                //m_graphSpectrumAnalyzer.ZoomEvent += new ZedGraph.ZedGraphControl.ZoomEventHandler(this.zedSpectrumAnalyzer_ZoomEvent);
+
+                m_graphIrradiationChannel.GraphPane.XAxis.IsVisible = false;
+                m_graphIrradiationChannel.GraphPane.Y2Axis.IsVisible = false;
+                m_graphIrradiationChannel.GraphPane.YAxis.IsVisible = false;
+                m_graphIrradiationChannel.GraphPane.Border.IsVisible = false;
+
+                //Define needles; can add more than one
+                m_IrradiationChannelNeedle = new GasGaugeNeedle("Realtime", -30.0f, Color.Blue);
+                m_IrradiationChannelNeedle.NeedleWidth = 10f;
+                m_IrradiationChannelNeedle.NeedleColor = Color.Blue;
+                m_IrradiationChannelNeedle.Label.IsVisible = false;
+                m_IrradiationChannelNeedle.LineCap = LineCap.ArrowAnchor;
+                m_graphIrradiationChannel.GraphPane.CurveList.Add(m_IrradiationChannelNeedle);
+
+                //Define all regions
+                m_IrradiationChannelRegion_Low = new GasGaugeRegion("Low", -120.0f, -90.0f, Color.Blue);
+                m_IrradiationChannelRegion_Low.HasLabel = true;
+                m_IrradiationChannelRegion_Medium = new GasGaugeRegion("Medium", -90.0f, -30.0f, Color.LightBlue);
+                m_IrradiationChannelRegion_High = new GasGaugeRegion("High", -30.0f, 0.0f, Color.Red);
+                m_IrradiationChannelRegion_High.HasLabel = true;
+                m_IrradiationChannelRegion_Low.Label.IsVisible = false;
+                m_IrradiationChannelRegion_Medium.Label.IsVisible = false;
+                m_IrradiationChannelRegion_High.Label.IsVisible = false;
+
+                //not working as intended
+                //m_PowerChannelRegion_Low.RegionColorStart = Color.LightGreen;
+                //m_PowerChannelRegion_Low.RegionColorEnd = Color.LightBlue;
+                //m_PowerChannelRegion_Medium.RegionColorStart = Color.LightBlue;
+                //m_PowerChannelRegion_Medium.RegionColorEnd = Color.Blue;
+                //m_PowerChannelRegion_High.RegionColorStart = Color.Blue;
+                //m_PowerChannelRegion_High.RegionColorEnd = Color.Red;
+
+                m_IrradiationChannelText = new TextObj("No data available", 0.5, 0.25, CoordType.PaneFraction);
+                m_IrradiationChannelText.IsClippedToChartRect = false;
+                m_IrradiationChannelText.FontSpec.FontColor = Color.DarkBlue;
+                m_IrradiationChannelText.Location.AlignH = AlignH.Center;
+                m_IrradiationChannelText.Location.AlignV = AlignV.Center;
+                m_IrradiationChannelText.FontSpec.IsBold = false;
+                m_IrradiationChannelText.FontSpec.Size = 16f;
+                m_IrradiationChannelText.FontSpec.Border.IsVisible = false;
+                m_IrradiationChannelText.FontSpec.Fill.IsVisible = false;
+                m_IrradiationChannelText.FontSpec.StringAlignment = StringAlignment.Center;
+                m_IrradiationChannelText.FontSpec.Family = "Arial";
+                m_graphIrradiationChannel.GraphPane.GraphObjList.Add(m_IrradiationChannelText);
+
+                // Add the curves
+                m_graphIrradiationChannel.GraphPane.CurveList.Add(m_IrradiationChannelRegion_Low);
+                m_graphIrradiationChannel.GraphPane.CurveList.Add(m_IrradiationChannelRegion_Medium);
+                m_graphIrradiationChannel.GraphPane.CurveList.Add(m_IrradiationChannelRegion_High);
+                m_graphIrradiationChannel.GraphPane.Angle = 150;
+                m_graphIrradiationChannel.GraphPane.GasGaugeRegionWidth = 25;
+                m_graphIrradiationChannel.GraphPane.GasGaugeBorder = false;
+                m_graphIrradiationChannel.GraphPane.ShowGasGaugeValueLabel = false; //needs better code to paint value + unit
+                m_graphIrradiationChannel.GraphPane.HasLabel = false; //needs better code to paint values
+                m_graphIrradiationChannel.GraphPane.Border.IsVisible = false;
+                m_graphIrradiationChannel.GraphPane.Chart.Border.IsVisible = false;
+                m_graphIrradiationChannel.GraphPane.Clockwise = true;
+                m_graphIrradiationChannel.AxisChange();
+            }
+
+            DisplayGroups();
+            m_tabIrradiation.Invalidate();
+        }
+
         private void objGraphPowerChannel_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
+        {
+            menuStrip.Items["save_as"].Click += new System.EventHandler(OnSaveImage_Click);
+            menuStrip.Items["copy"].Click += new System.EventHandler(OnClipboard_Click);
+            menuStrip.Items["show_val"].Visible = false;
+            menuStrip.Items["unzoom"].Visible = false;
+            menuStrip.Items["undo_all"].Visible = false;
+        }
+
+        private void objGraphIrradiationChannel_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
         {
             menuStrip.Items["save_as"].Click += new System.EventHandler(OnSaveImage_Click);
             menuStrip.Items["copy"].Click += new System.EventHandler(OnClipboard_Click);
@@ -4843,6 +4854,11 @@ namespace RFExplorerClient
             {
                 rectArea = m_graphPowerChannel.ClientRectangle;
                 controlArea = m_graphPowerChannel;
+            }
+            else if (m_MainTab.SelectedTab == m_tabIrradiation)
+            {
+                rectArea = m_graphIrradiationChannel.ClientRectangle;
+                controlArea = m_graphIrradiationChannel;
             }
             else
             {
