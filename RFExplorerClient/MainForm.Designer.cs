@@ -722,14 +722,14 @@ namespace RFExplorerClient
             // menuLimitLineMaxBuildFromSignal
             // 
             this.menuLimitLineMaxBuildFromSignal.Name = "menuLimitLineMaxBuildFromSignal";
-            this.menuLimitLineMaxBuildFromSignal.Size = new System.Drawing.Size(106, 22);
+            this.menuLimitLineMaxBuildFromSignal.Size = new System.Drawing.Size(105, 22);
             this.menuLimitLineMaxBuildFromSignal.Text = "&Max...";
             this.menuLimitLineMaxBuildFromSignal.Click += new System.EventHandler(this.OnLimitLineBuildFromSignal_Click);
             // 
             // menuLimitLineMinBuildFromSignal
             // 
             this.menuLimitLineMinBuildFromSignal.Name = "menuLimitLineMinBuildFromSignal";
-            this.menuLimitLineMinBuildFromSignal.Size = new System.Drawing.Size(106, 22);
+            this.menuLimitLineMinBuildFromSignal.Size = new System.Drawing.Size(105, 22);
             this.menuLimitLineMinBuildFromSignal.Text = "M&in...";
             this.menuLimitLineMinBuildFromSignal.Click += new System.EventHandler(this.OnLimitLineBuildFromSignal_Click);
             // 
@@ -745,14 +745,14 @@ namespace RFExplorerClient
             // menuLimitLineMaxSaveToFile
             // 
             this.menuLimitLineMaxSaveToFile.Name = "menuLimitLineMaxSaveToFile";
-            this.menuLimitLineMaxSaveToFile.Size = new System.Drawing.Size(106, 22);
+            this.menuLimitLineMaxSaveToFile.Size = new System.Drawing.Size(105, 22);
             this.menuLimitLineMaxSaveToFile.Text = "&Max...";
             this.menuLimitLineMaxSaveToFile.Click += new System.EventHandler(this.OnLimitLineSaveToFile_Click);
             // 
             // menuLimitLineMinSaveToFile
             // 
             this.menuLimitLineMinSaveToFile.Name = "menuLimitLineMinSaveToFile";
-            this.menuLimitLineMinSaveToFile.Size = new System.Drawing.Size(106, 22);
+            this.menuLimitLineMinSaveToFile.Size = new System.Drawing.Size(105, 22);
             this.menuLimitLineMinSaveToFile.Text = "M&in...";
             this.menuLimitLineMinSaveToFile.Click += new System.EventHandler(this.OnLimitLineSaveToFile_Click);
             // 
@@ -768,14 +768,14 @@ namespace RFExplorerClient
             // menuLimitLineMaxReadFromFile
             // 
             this.menuLimitLineMaxReadFromFile.Name = "menuLimitLineMaxReadFromFile";
-            this.menuLimitLineMaxReadFromFile.Size = new System.Drawing.Size(106, 22);
+            this.menuLimitLineMaxReadFromFile.Size = new System.Drawing.Size(105, 22);
             this.menuLimitLineMaxReadFromFile.Text = "&Max...";
             this.menuLimitLineMaxReadFromFile.Click += new System.EventHandler(this.OnLimitLineReadFromFile_Click);
             // 
             // menuLimitLineMinReadFromFile
             // 
             this.menuLimitLineMinReadFromFile.Name = "menuLimitLineMinReadFromFile";
-            this.menuLimitLineMinReadFromFile.Size = new System.Drawing.Size(106, 22);
+            this.menuLimitLineMinReadFromFile.Size = new System.Drawing.Size(105, 22);
             this.menuLimitLineMinReadFromFile.Text = "M&in...";
             this.menuLimitLineMinReadFromFile.Click += new System.EventHandler(this.OnLimitLineReadFromFile_Click);
             // 
@@ -791,14 +791,14 @@ namespace RFExplorerClient
             // menuRemoveMaxLimitLine
             // 
             this.menuRemoveMaxLimitLine.Name = "menuRemoveMaxLimitLine";
-            this.menuRemoveMaxLimitLine.Size = new System.Drawing.Size(97, 22);
+            this.menuRemoveMaxLimitLine.Size = new System.Drawing.Size(96, 22);
             this.menuRemoveMaxLimitLine.Text = "&Max";
             this.menuRemoveMaxLimitLine.Click += new System.EventHandler(this.OnRemoveMaxLimitLine_Click);
             // 
             // menuRemoveMinLimitLine
             // 
             this.menuRemoveMinLimitLine.Name = "menuRemoveMinLimitLine";
-            this.menuRemoveMinLimitLine.Size = new System.Drawing.Size(97, 22);
+            this.menuRemoveMinLimitLine.Size = new System.Drawing.Size(96, 22);
             this.menuRemoveMinLimitLine.Text = "M&in";
             this.menuRemoveMinLimitLine.Click += new System.EventHandler(this.OnRemoveMinLimitLine_Click);
             // 
@@ -1066,7 +1066,7 @@ namespace RFExplorerClient
             // 
             this.menuRFConnections.CheckOnClick = true;
             this.menuRFConnections.Name = "menuRFConnections";
-            this.menuRFConnections.Size = new System.Drawing.Size(331, 22);
+            this.menuRFConnections.Size = new System.Drawing.Size(330, 22);
             this.menuRFConnections.Text = "Show RF Explorer icon and RF Active &Connection";
             this.menuRFConnections.ToolTipText = "Show visual device icon including connected antennas and enabled RF SMA port";
             this.menuRFConnections.Click += new System.EventHandler(this.OnRFConnections_Click);
@@ -1074,13 +1074,13 @@ namespace RFExplorerClient
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(328, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(327, 6);
             // 
             // menuEnableMainboard
             // 
             this.menuEnableMainboard.Enabled = false;
             this.menuEnableMainboard.Name = "menuEnableMainboard";
-            this.menuEnableMainboard.Size = new System.Drawing.Size(331, 22);
+            this.menuEnableMainboard.Size = new System.Drawing.Size(330, 22);
             this.menuEnableMainboard.Text = "Enable &left SMA connector";
             this.menuEnableMainboard.ToolTipText = "Use this option to enable remote device port on the left";
             this.menuEnableMainboard.Click += new System.EventHandler(this.OnEnableMainboard_Click);
@@ -1089,7 +1089,7 @@ namespace RFExplorerClient
             // 
             this.menuEnableExpansionBoard.Enabled = false;
             this.menuEnableExpansionBoard.Name = "menuEnableExpansionBoard";
-            this.menuEnableExpansionBoard.Size = new System.Drawing.Size(331, 22);
+            this.menuEnableExpansionBoard.Size = new System.Drawing.Size(330, 22);
             this.menuEnableExpansionBoard.Text = "Enable &right SMA connector";
             this.menuEnableExpansionBoard.ToolTipText = "Use this option to enable remote device port on the right";
             this.menuEnableExpansionBoard.Click += new System.EventHandler(this.OnEnableExpansionBoard_Click);
@@ -1097,13 +1097,13 @@ namespace RFExplorerClient
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(328, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(327, 6);
             // 
             // menuRemoteMaxHold
             // 
             this.menuRemoteMaxHold.CheckOnClick = true;
             this.menuRemoteMaxHold.Name = "menuRemoteMaxHold";
-            this.menuRemoteMaxHold.Size = new System.Drawing.Size(331, 22);
+            this.menuRemoteMaxHold.Size = new System.Drawing.Size(330, 22);
             this.menuRemoteMaxHold.Text = "Enable Remote MaxHold";
             this.menuRemoteMaxHold.ToolTipText = "Enable this to increase chances of fast changing signal capture, such as WiFi. Di" +
     "sable for extra accurate signal capture.";
@@ -1112,7 +1112,7 @@ namespace RFExplorerClient
             // menuRefreshRemoteMaxHold
             // 
             this.menuRefreshRemoteMaxHold.Name = "menuRefreshRemoteMaxHold";
-            this.menuRefreshRemoteMaxHold.Size = new System.Drawing.Size(331, 22);
+            this.menuRefreshRemoteMaxHold.Size = new System.Drawing.Size(330, 22);
             this.menuRefreshRemoteMaxHold.Text = "Refresh Remote MaxHold buffer";
             this.menuRefreshRemoteMaxHold.ToolTipText = "When Remote MaxHold mode is enabled for fast signal capture, it is suggested to c" +
     "lean remote capture buffer with this option or by clicking RETURN key in the RF " +
@@ -1122,13 +1122,13 @@ namespace RFExplorerClient
             // toolStripSeparator21
             // 
             this.toolStripSeparator21.Name = "toolStripSeparator21";
-            this.toolStripSeparator21.Size = new System.Drawing.Size(328, 6);
+            this.toolStripSeparator21.Size = new System.Drawing.Size(327, 6);
             // 
             // menuAutoLCDOff
             // 
             this.menuAutoLCDOff.CheckOnClick = true;
             this.menuAutoLCDOff.Name = "menuAutoLCDOff";
-            this.menuAutoLCDOff.Size = new System.Drawing.Size(331, 22);
+            this.menuAutoLCDOff.Size = new System.Drawing.Size(330, 22);
             this.menuAutoLCDOff.Text = "Automatic LCD O&FF";
             this.menuAutoLCDOff.ToolTipText = "Automatically switch the LCD off for faster updates and help increase LCD lifetim" +
     "e";
@@ -1138,7 +1138,7 @@ namespace RFExplorerClient
             // 
             this.menuRemoteAmplitudeUpdate.CheckOnClick = true;
             this.menuRemoteAmplitudeUpdate.Name = "menuRemoteAmplitudeUpdate";
-            this.menuRemoteAmplitudeUpdate.Size = new System.Drawing.Size(331, 22);
+            this.menuRemoteAmplitudeUpdate.Size = new System.Drawing.Size(330, 22);
             this.menuRemoteAmplitudeUpdate.Text = "Automatic Update Remote Amplitude";
             this.menuRemoteAmplitudeUpdate.ToolTipText = "Use this option enabled to force the RF Explorer device to update amplitude visua" +
     "l range, or disable for fast local updates with no need to remote updates";
@@ -1173,52 +1173,52 @@ namespace RFExplorerClient
             // menuOnlineHelp
             // 
             this.menuOnlineHelp.Name = "menuOnlineHelp";
-            this.menuOnlineHelp.Size = new System.Drawing.Size(279, 22);
+            this.menuOnlineHelp.Size = new System.Drawing.Size(278, 22);
             this.menuOnlineHelp.Text = "RF Explorer for Windows Online &Help";
             this.menuOnlineHelp.Click += new System.EventHandler(this.OnOnlineHelp_Click);
             // 
             // menuDeviceManual
             // 
             this.menuDeviceManual.Name = "menuDeviceManual";
-            this.menuDeviceManual.Size = new System.Drawing.Size(279, 22);
+            this.menuDeviceManual.Size = new System.Drawing.Size(278, 22);
             this.menuDeviceManual.Text = "RF Explorer device User Manual";
             this.menuDeviceManual.Click += new System.EventHandler(this.OnDeviceManual_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(276, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(275, 6);
             // 
             // menuReleaseNotes
             // 
             this.menuReleaseNotes.Name = "menuReleaseNotes";
-            this.menuReleaseNotes.Size = new System.Drawing.Size(279, 22);
+            this.menuReleaseNotes.Size = new System.Drawing.Size(278, 22);
             this.menuReleaseNotes.Text = "RF Explorer Firmware Release Notes";
             this.menuReleaseNotes.Click += new System.EventHandler(this.OnFirmware_Click);
             // 
             // menuWindowsReleaseNotes
             // 
             this.menuWindowsReleaseNotes.Name = "menuWindowsReleaseNotes";
-            this.menuWindowsReleaseNotes.Size = new System.Drawing.Size(279, 22);
+            this.menuWindowsReleaseNotes.Size = new System.Drawing.Size(278, 22);
             this.menuWindowsReleaseNotes.Text = "RF Explorer for Windows Release Notes";
             this.menuWindowsReleaseNotes.Click += new System.EventHandler(this.OnWindowsReleaseNotes_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(276, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(275, 6);
             // 
             // menuPortInfo
             // 
             this.menuPortInfo.Name = "menuPortInfo";
-            this.menuPortInfo.Size = new System.Drawing.Size(279, 22);
+            this.menuPortInfo.Size = new System.Drawing.Size(278, 22);
             this.menuPortInfo.Text = "Report COM port &info";
             this.menuPortInfo.Click += new System.EventHandler(this.OnCOMPortInfo_Click);
             // 
             // menuAbout
             // 
             this.menuAbout.Name = "menuAbout";
-            this.menuAbout.Size = new System.Drawing.Size(279, 22);
+            this.menuAbout.Size = new System.Drawing.Size(278, 22);
             this.menuAbout.Text = "A&bout RF Explorer For Windows...";
             this.menuAbout.Click += new System.EventHandler(this.OnAbout_Click);
             // 
@@ -2119,7 +2119,7 @@ namespace RFExplorerClient
             this.m_tabIrradiation.Name = "m_tabIrradiation";
             this.m_tabIrradiation.Size = new System.Drawing.Size(1084, 510);
             this.m_tabIrradiation.TabIndex = 6;
-            this.m_tabIrradiation.Text = "Irradiation";
+            this.m_tabIrradiation.Text = "Irradiance";
             this.m_tabIrradiation.UseVisualStyleBackColor = true;
             this.m_tabIrradiation.Enter += new System.EventHandler(this.tabIrradiationChannel_Enter);
             // 

@@ -2880,34 +2880,57 @@ namespace RFExplorerClient
                     sPowerMode += "Realtime";
 
                     double fIrradiance = objSweep.GetIrradianceDBM(); //mW/m² - miliwatt/m2
-                    double fIrradiaceWatt = fIrradiance /= 1000.0f;
+                    //double fIrradiaceWatt = fIrradiance /= 1000.0f; //watt per square metre
+                    //string sWatt = " Watt";
+                    //if (fIrradiaceWatt < 0.5E-9)
+                    //{
+                    //    fIrradiaceWatt *= 1E12;
+                    //    sWatt = " pW";
+                    //}
+                    //else if (fIrradiaceWatt < 0.5E-6)
+                    //{
+                    //    fIrradiaceWatt *= 1E9;
+                    //    sWatt = " nW";
+                    //}
+                    //else if (fIrradiaceWatt < 0.5E-3)
+                    //{
+                    //    fIrradiaceWatt *= 1E6;
+                    //    sWatt = " uW";
+                    //}
+                    //else if (fIrradiaceWatt < 0.5f)
+                    //{
+                    //    fIrradiaceWatt *= 1E3;
+                    //    sWatt = " mW";
+                    //}
+                    //double fIrradiaceWatt = fIrradiance /= 1000.0f; //watt per square metre
+                    double fIrradianceShow = fIrradiance;
                     string sWatt = " Watt";
-                    if (fIrradiaceWatt < 0.5E-9)
+                    if (fIrradianceShow < 0.5E-6)
                     {
-                        fIrradiaceWatt *= 1E12;
+                        fIrradianceShow *= 1E9;
                         sWatt = " pW";
                     }
-                    else if (fIrradiaceWatt < 0.5E-6)
+                    else if (fIrradianceShow < 0.5E-3)
                     {
-                        fIrradiaceWatt *= 1E9;
+                        fIrradianceShow *= 1E6;
                         sWatt = " nW";
                     }
-                    else if (fIrradiaceWatt < 0.5E-3)
+                    else if (fIrradianceShow < 0.5E-0)
                     {
-                        fIrradiaceWatt *= 1E6;
+                        fIrradianceShow *= 1E3;
                         sWatt = " uW";
                     }
-                    else if (fIrradiaceWatt < 0.5f)
+                    else
                     {
-                        fIrradiaceWatt *= 1E3;
                         sWatt = " mW";
                     }
 
+                    sWatt += "/m²";
                     //TODO: max and min are not set correctly for the fIrradiance needle
                     m_IrradiationChannelNeedle.NeedleValue = fIrradiance;
 
                     m_IrradiationChannelText.Text = sPowerMode +
-                         "\nChannel Irradiance: " + fIrradiaceWatt.ToString("f1") + sWatt +
+                         "\nChannel Irradiance: " + fIrradianceShow.ToString("f1") + sWatt +
                          "\nChannel Center: " + objSweep.GetFrequencyMHZ((ushort)(objSweep.TotalSteps / 2)).ToString("f3") + " MHz" +
                          "\nChannel Bandwidth: " + objSweep.GetFrequencySpanMHZ().ToString("f3") + " MHz";
 
@@ -4101,19 +4124,18 @@ namespace RFExplorerClient
                     m_panelIrradationChannel.Height = m_MainStatusBar.Top - nTop - 10;
                     m_panelIrradationChannel.BorderStyle = BorderStyle.FixedSingle;
 
-                    double dMin = m_objRFEAnalyzer.AmplitudeBottomDBM;
-                    double dMax = m_objRFEAnalyzer.AmplitudeTopDBM;
+                    double dMin = 0f;//m_objRFEAnalyzer.AmplitudeBottomDBM;
+                    double dMax = 100f; // m_objRFEAnalyzer.AmplitudeTopDBM;
 
                     m_IrradiationChannelRegion_Low.MinValue = dMin;
-                    m_IrradiationChannelRegion_Low.MaxValue = dMin + ((dMax - dMin) * 0.25);
-                    m_IrradiationChannelRegion_High.MinValue = dMin + ((dMax - dMin) * 0.75);
+                    m_IrradiationChannelRegion_Low.MaxValue = 1f;//dMin + ((dMax - dMin) * 0.25);
+                    m_IrradiationChannelRegion_High.MinValue = 10f; //dMin + ((dMax - dMin) * 0.75);
                     m_IrradiationChannelRegion_High.MaxValue = dMax;
 
                     m_IrradiationChannelRegion_Medium.MinValue = m_IrradiationChannelRegion_Low.MaxValue;
                     m_IrradiationChannelRegion_Medium.MaxValue = m_IrradiationChannelRegion_High.MinValue;
 
                     m_panelIrradationChannel.Left = 5;
-                    //m_graphPowerChannel.Width = m_panelPowerChannel.Width - 10;
                 }
 
                 if (m_MainTab.SelectedTab == m_tabReport)
