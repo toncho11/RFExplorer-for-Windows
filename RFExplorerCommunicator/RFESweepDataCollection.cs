@@ -63,6 +63,9 @@ namespace RFExplorerCommunicator
             get { return m_nTotalSteps; }
         }
 
+        public static Dictionary<Int64, double> AntennaConfig;
+        public static Dictionary<double, double> AntennaDbGain;
+
         /// <summary>
         /// The actual data container, a consecutive set of dBm amplitude values
         /// </summary>
@@ -112,8 +115,11 @@ namespace RFExplorerCommunicator
                 {
                     if (bBLOB)
                         m_arrBLOB = new byte[TotalSteps];
-                    RFESweepData objSweep = new RFESweepData((float)StartFrequencyMHZ, (float)StepFrequencyMHZ, TotalSteps);
-                    objSweep.CaptureTime = DateTime.Now;
+
+                    //Anton: commented because it does a strange recursive call to RFESweepData
+                    //RFESweepData objSweep = new RFESweepData((float)StartFrequencyMHZ, (float)StepFrequencyMHZ, TotalSteps);
+                    //objSweep.CaptureTime = DateTime.Now;
+
                     if (bString)
                         m_sBLOBString = sLine.Substring(2, TotalSteps);
                     for (ushort nInd = 0; nInd < TotalSteps; nInd++)
@@ -342,12 +348,34 @@ namespace RFExplorerCommunicator
             input = 0.0;
             of = 0.05;
             dBgain = 5.0;
-
             double fIrradiance = 0.0f;
 
             for (UInt16 nInd = 0; nInd < m_nTotalSteps; nInd++)
             {
-                double fMHZ = m_fStartFrequencyMHZ + (m_fStepFrequencyMHZ * nInd);
+                //double fMHZ = m_fStartFrequencyMHZ + (m_fStepFrequencyMHZ * nInd);
+                double fMHZ = GetFrequencyMHZ(nInd); //TODO: verify it is correct
+
+                if (AntennaConfig != null && AntennaDbGain != null)
+                {
+                    bool isCached = AntennaDbGain.TryGetValue(fMHZ, out dBgain);
+                    if (!isCached)
+                    {
+                        double min = double.MaxValue;
+                        foreach (var key in AntennaConfig.Keys)
+                        {
+                            double v = key / 1E6;
+
+                            if (Math.Abs((v - fMHZ)) < min)
+                            {
+                                min = Math.Abs((v - fMHZ));
+                                dBgain = AntennaConfig[key];
+                            }
+                        }
+
+                        AntennaDbGain.Add(fMHZ, dBgain);
+                    }
+                }
+
                 f = fMHZ * 1E06;
                 //TODO: adjust the "dBgain" by searching in the antenna config file for the closest value for frequency f
                 //TODO: adjust the "dBcil" by searching in the cable config file (if available) for the closest value for frequency f
@@ -906,5 +934,5 @@ namespace RFExplorerCommunicator
         {
             Array.Resize(ref m_arrData, m_arrData.Length + nSizeToAdd);
         }
-    }
+    } 
 }

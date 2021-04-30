@@ -41,6 +41,7 @@ using System.Diagnostics;
 using RFExplorerCommunicator;
 using RFEClientControls;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace RFExplorerClient
 {
@@ -3402,6 +3403,18 @@ namespace RFExplorerClient
 
             m_GraphSpectrumAnalyzer.Refresh();
             zedRAWDecoder.Refresh();
+
+            #region Irradiance
+            if (m_objRFEAnalyzer.HoldMode == false) //it is run mode
+            {
+                ProcessIrradianceConfigFiles();
+                grpBoxConfigIrradiance.Enabled = false;
+            }
+            else
+            {
+                grpBoxConfigIrradiance.Enabled = true;
+            }
+            #endregion
         }
 
         /// <summary>
@@ -3620,6 +3633,7 @@ namespace RFExplorerClient
         private void OnSendAnalyzerConfiguration(object sender, EventArgs e)
         {
             UpdateYAxis();
+            ProcessIrradianceConfigFiles();
         }
 
         private void OnMoveFreqDecLarge_Click(object sender, EventArgs e)
@@ -6391,5 +6405,45 @@ namespace RFExplorerClient
         {
         }
         #endregion
+
+        private void ProcessIrradianceConfigFiles()
+        {
+            if (string.IsNullOrEmpty(txtBoxAntennaConfigFile.Text)) return;
+
+            string text = File.ReadAllText(txtBoxAntennaConfigFile.Text);
+
+            if (string.IsNullOrEmpty(text))
+            {
+                MessageBox.Show("No antenna config file selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            text = text.Replace(",", ".");
+            //load XML 
+            //< mwm2fdBTE f = "50000" dB = "1,0" />
+            //string pat = @"(\w+)\s+(car)";
+            string pat = "<\\s*mwm2fdBTE\\s*f=\\s*\"(\\d+)\"\\s*dB=\\s*\"([+-]?([0-9]*[.])?[0-9]+)\"";
+            Regex r = new Regex(pat, RegexOptions.IgnoreCase);
+
+            // Match the regular expression pattern against a text string.
+            Match m = r.Match(text);
+            int matchCount = 0;
+
+            System.Collections.Generic.Dictionary<Int64, double> antennaConfig = new System.Collections.Generic.Dictionary<Int64, double>();
+
+            while (m.Success)
+            {
+                antennaConfig.Add(Convert.ToInt64(m.Groups[1].Value), Convert.ToDouble(m.Groups[2].Value));
+
+                m = m.NextMatch();
+
+                matchCount++;
+            }
+
+            RFESweepData.AntennaConfig = antennaConfig;
+            RFESweepData.AntennaDbGain = new System.Collections.Generic.Dictionary<double, double>();
+            //if (matchCount > 0)
+            //    RFECommunicator.CalculateAntennaCorrection(antennaConfig);
+        }
     }
 }

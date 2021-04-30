@@ -1501,8 +1501,12 @@ namespace RFExplorerCommunicator
                                             }
 
                                             RFESweepData objSweep = new RFESweepData(objCurrentConfiguration.fStartMHZ, objCurrentConfiguration.fStepMHZ, nSweepSteps);
+                                            
                                             if (objSweep.ProcessReceivedString(sNewLine, objCurrentConfiguration.fOffset_dB, m_bUseByteBLOB, m_bUseStringBLOB))
                                             {
+                                                //Anton:
+                                                objSweep.CaptureTime = DateTime.Now;
+
                                                 if (!m_bThreadTrackingEnabled)
                                                 {
                                                     if (m_bDebugTraces)

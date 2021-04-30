@@ -238,6 +238,7 @@ namespace RFEClientControls
             UpdateRemoteConfigData();
 
             OnSendAnalyzerConfigurationEvent(new EventArgs());
+
         }
 
         private void OnReset_Click(object sender, EventArgs e)

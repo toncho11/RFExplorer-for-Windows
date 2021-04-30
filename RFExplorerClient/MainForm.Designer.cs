@@ -285,6 +285,10 @@ namespace RFExplorerClient
             this.m_tabReport = new System.Windows.Forms.TabPage();
             this.m_ReportTextBox = new System.Windows.Forms.TextBox();
             this.m_tabIrradiation = new System.Windows.Forms.TabPage();
+            this.grpBoxConfigIrradiance = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBoxAntennaConfigFile = new System.Windows.Forms.TextBox();
+            this.btnOpenAntennaConfigFile = new System.Windows.Forms.Button();
             this.m_panelIrradationChannel = new System.Windows.Forms.Panel();
             this.menuContextWaterfall = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuWaterfallContextMaxHold = new System.Windows.Forms.ToolStripMenuItem();
@@ -348,6 +352,7 @@ namespace RFExplorerClient
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.m_tabReport.SuspendLayout();
             this.m_tabIrradiation.SuspendLayout();
+            this.grpBoxConfigIrradiance.SuspendLayout();
             this.menuContextWaterfall.SuspendLayout();
             this.m_MainStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMultiGraph)).BeginInit();
@@ -2114,6 +2119,7 @@ namespace RFExplorerClient
             // 
             // m_tabIrradiation
             // 
+            this.m_tabIrradiation.Controls.Add(this.grpBoxConfigIrradiance);
             this.m_tabIrradiation.Controls.Add(this.m_panelIrradationChannel);
             this.m_tabIrradiation.Location = new System.Drawing.Point(4, 26);
             this.m_tabIrradiation.Name = "m_tabIrradiation";
@@ -2122,6 +2128,43 @@ namespace RFExplorerClient
             this.m_tabIrradiation.Text = "Irradiance";
             this.m_tabIrradiation.UseVisualStyleBackColor = true;
             this.m_tabIrradiation.Enter += new System.EventHandler(this.tabIrradiationChannel_Enter);
+            // 
+            // grpBoxConfigIrradiance
+            // 
+            this.grpBoxConfigIrradiance.Controls.Add(this.label1);
+            this.grpBoxConfigIrradiance.Controls.Add(this.txtBoxAntennaConfigFile);
+            this.grpBoxConfigIrradiance.Controls.Add(this.btnOpenAntennaConfigFile);
+            this.grpBoxConfigIrradiance.Location = new System.Drawing.Point(646, 3);
+            this.grpBoxConfigIrradiance.Name = "grpBoxConfigIrradiance";
+            this.grpBoxConfigIrradiance.Size = new System.Drawing.Size(438, 105);
+            this.grpBoxConfigIrradiance.TabIndex = 2;
+            this.grpBoxConfigIrradiance.TabStop = false;
+            this.grpBoxConfigIrradiance.Text = "Configuration";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Antenna config file";
+            // 
+            // txtBoxAntennaConfigFile
+            // 
+            this.txtBoxAntennaConfigFile.Location = new System.Drawing.Point(109, 14);
+            this.txtBoxAntennaConfigFile.Name = "txtBoxAntennaConfigFile";
+            this.txtBoxAntennaConfigFile.Size = new System.Drawing.Size(142, 21);
+            this.txtBoxAntennaConfigFile.TabIndex = 1;
+            // 
+            // btnOpenAntennaConfigFile
+            // 
+            this.btnOpenAntennaConfigFile.Location = new System.Drawing.Point(257, 14);
+            this.btnOpenAntennaConfigFile.Name = "btnOpenAntennaConfigFile";
+            this.btnOpenAntennaConfigFile.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenAntennaConfigFile.TabIndex = 0;
+            this.btnOpenAntennaConfigFile.Text = "Select";
+            this.btnOpenAntennaConfigFile.UseVisualStyleBackColor = true;
             // 
             // m_panelIrradationChannel
             // 
@@ -2516,6 +2559,8 @@ namespace RFExplorerClient
             this.m_tabReport.ResumeLayout(false);
             this.m_tabReport.PerformLayout();
             this.m_tabIrradiation.ResumeLayout(false);
+            this.grpBoxConfigIrradiance.ResumeLayout(false);
+            this.grpBoxConfigIrradiance.PerformLayout();
             this.menuContextWaterfall.ResumeLayout(false);
             this.m_MainStatusBar.ResumeLayout(false);
             this.m_MainStatusBar.PerformLayout();
@@ -2745,6 +2790,10 @@ namespace RFExplorerClient
         private System.Windows.Forms.TabPage m_tabIrradiation;
         public System.Windows.Forms.Panel m_panelIrradationChannel;
         public System.Windows.Forms.Panel m_panelPowerChannel;
+        private System.Windows.Forms.GroupBox grpBoxConfigIrradiance;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBoxAntennaConfigFile;
+        private System.Windows.Forms.Button btnOpenAntennaConfigFile;
     }
 }
 
