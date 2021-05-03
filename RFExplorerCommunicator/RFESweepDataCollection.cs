@@ -347,7 +347,8 @@ namespace RFExplorerCommunicator
             //configure values
             input = 0.0;
             of = 0.05;
-            dBgain = 5.0;
+            dBgain = (AntennaConfig != null && AntennaConfig.Count > 0) ? 0 : 5.0; //TODO: check with Marco
+
             double fIrradiance = 0.0f;
 
             List<double> frequecies = GetFrequencyList();
