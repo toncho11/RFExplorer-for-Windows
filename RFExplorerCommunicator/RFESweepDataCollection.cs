@@ -25,11 +25,20 @@ using System.IO;
 
 namespace RFExplorerCommunicator
 {
+    public struct AntennaConfigItem
+    {
+        public double TargetFrequency;
+        public double FileFrequency;
+        public double FileDbGain;
+        public double Min;
+    }
+
     /// <summary>
     /// Class support a full sweep of data from RF Explorer, and it is used in the RFESweepDataCollection container
     /// </summary>
     public class RFESweepData
     {
+        static List<AntennaConfigItem> itemsTest = new List<AntennaConfigItem>();
         /// <summary>
         /// Start frequency
         /// </summary>
@@ -365,19 +374,28 @@ namespace RFExplorerCommunicator
                     if (!isCached)
                     {
                         double min = double.MaxValue;
+                        double fFile = -1;
+                        double fFileMin = -1;
                         foreach (var key in AntennaConfig.Keys)
                         {
-                            double fFile = key / 1E6; //convert from Hz to MHZ
+                            fFile = key / 1E6; //convert from Hz to MHZ
 
                             if (Math.Abs((fFile - fMHZ)) < min)
                             {
                                 min = Math.Abs((fFile - fMHZ));
-                                dBgain = AntennaConfig[key];
+                                fFileMin = fFile;
+                                if (min < 0.5) //TODO: there should be some limit: min can not be bigger than certan value
+                                    dBgain = AntennaConfig[key];
                             }
-                            //TODO: there should be some limit: min can not be bigger than certan value
+                            
                         }
 
+                        if (min > 0.5)
+                            Console.WriteLine("fsfs");
+                        //TODO: The antenna file is not good.
+
                         AntennaDbGain.Add(fMHZ, dBgain);
+                        itemsTest.Add(new AntennaConfigItem { TargetFrequency= fMHZ, FileFrequency = fFileMin, FileDbGain = dBgain, Min = min});
                     }
                 }
                 #endregion

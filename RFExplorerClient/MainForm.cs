@@ -6469,7 +6469,10 @@ namespace RFExplorerClient
             }
 
             RFESweepData.AntennaConfig = antennaConfig;
-            RFESweepData.AntennaDbGain = new System.Collections.Generic.Dictionary<double, double>();
+            //RFESweepData.AntennaDbGain = new System.Collections.Generic.Dictionary<double, double>();
+            if (RFESweepData.AntennaDbGain == null)
+                RFESweepData.AntennaDbGain = new System.Collections.Generic.Dictionary<double, double>();
+            else RFESweepData.AntennaDbGain.Clear();
             //if (matchCount > 0)
             //    RFECommunicator.CalculateAntennaCorrection(antennaConfig);
         }
