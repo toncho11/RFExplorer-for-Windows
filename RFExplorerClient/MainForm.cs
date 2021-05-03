@@ -4150,6 +4150,9 @@ namespace RFExplorerClient
                     m_IrradiationChannelRegion_Medium.MaxValue = m_IrradiationChannelRegion_High.MinValue;
 
                     m_panelIrradationChannel.Left = 5;
+
+                    //grpBoxConfigIrradiance.Left = m_tabIrradiation.Right - 6 - grpBoxConfigIrradiance.Size.Width;
+                    grpBoxConfigIrradiance.Left = this.m_ToolGroup_AnalyzerFreqSettings.Right + 8;
                 }
 
                 if (m_MainTab.SelectedTab == m_tabReport)

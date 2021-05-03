@@ -25,13 +25,6 @@ using System.IO;
 
 namespace RFExplorerCommunicator
 {
-    struct AntennaConfigItem
-    {
-        double TargetFrequency;
-        double FileDbGain;
-        double FileFrequency; 
-    }
-
     /// <summary>
     /// Class support a full sweep of data from RF Explorer, and it is used in the RFESweepDataCollection container
     /// </summary>
@@ -357,6 +350,8 @@ namespace RFExplorerCommunicator
             dBgain = 5.0;
             double fIrradiance = 0.0f;
 
+            List<double> frequecies = GetFrequencyList();
+
             for (UInt16 nInd = 0; nInd < m_nTotalSteps; nInd++)
             {
                 double fMHZ = GetFrequencyMHZ(nInd);
@@ -423,6 +418,18 @@ namespace RFExplorerCommunicator
                 sResult += GetAmplitudeDBM(nStep).ToString("00.0");
             }
             return sResult;
+        }
+
+        public List<double> GetFrequencyList()
+        {
+            List<double> frequencies = new List<double>();
+
+            for (UInt16 nInd = 0; nInd < m_nTotalSteps; nInd++)
+            {
+                double fMHZ = GetFrequencyMHZ(nInd);
+                frequencies.Add(fMHZ);
+            }
+            return frequencies;
         }
     }
 
