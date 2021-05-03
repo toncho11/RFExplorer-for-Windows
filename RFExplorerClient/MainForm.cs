@@ -5955,6 +5955,31 @@ namespace RFExplorerClient
             }
         }
 
+        private void btnOpenAntennaConfigFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"c:\",
+                Title = "Browse for Antenna Config File",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "xml",
+                Filter = "xml files (*.xml)|*.xml",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtBoxAntennaConfigFile.Text = openFileDialog1.FileName;
+            }
+        }
+
         private void UpdateSNAMarkerControlValues()
         {
             m_panelSNAMarkers.BackColor = m_ColorPanelBackground;

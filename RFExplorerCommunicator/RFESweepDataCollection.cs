@@ -25,6 +25,13 @@ using System.IO;
 
 namespace RFExplorerCommunicator
 {
+    struct AntennaConfigItem
+    {
+        double TargetFrequency;
+        double FileDbGain;
+        double FileFrequency; 
+    }
+
     /// <summary>
     /// Class support a full sweep of data from RF Explorer, and it is used in the RFESweepDataCollection container
     /// </summary>
@@ -352,9 +359,10 @@ namespace RFExplorerCommunicator
 
             for (UInt16 nInd = 0; nInd < m_nTotalSteps; nInd++)
             {
-                //double fMHZ = m_fStartFrequencyMHZ + (m_fStepFrequencyMHZ * nInd);
-                double fMHZ = GetFrequencyMHZ(nInd); //TODO: verify it is correct
+                double fMHZ = GetFrequencyMHZ(nInd);
 
+                #region Adjust the "dBgain" using a config file
+                //adjust the "dBgain" by searching in the antenna config file for the closest value for a specified frequency f
                 if (AntennaConfig != null && AntennaDbGain != null)
                 {
                     bool isCached = AntennaDbGain.TryGetValue(fMHZ, out dBgain);
@@ -363,22 +371,26 @@ namespace RFExplorerCommunicator
                         double min = double.MaxValue;
                         foreach (var key in AntennaConfig.Keys)
                         {
-                            double v = key / 1E6;
+                            double fFile = key / 1E6; //convert from Hz to MHZ
 
-                            if (Math.Abs((v - fMHZ)) < min)
+                            if (Math.Abs((fFile - fMHZ)) < min)
                             {
-                                min = Math.Abs((v - fMHZ));
+                                min = Math.Abs((fFile - fMHZ));
                                 dBgain = AntennaConfig[key];
                             }
+                            //TODO: there should be some limit: min can not be bigger than certan value
                         }
 
                         AntennaDbGain.Add(fMHZ, dBgain);
                     }
                 }
+                #endregion
+
+                #region Adjust the "dBcil"
+                //TODO: adjust the "dBcil" by searching in the cable config file (if available) for the closest value for frequency f
+                #endregion
 
                 f = fMHZ * 1E06;
-                //TODO: adjust the "dBgain" by searching in the antenna config file for the closest value for frequency f
-                //TODO: adjust the "dBcil" by searching in the cable config file (if available) for the closest value for frequency f
                 w = c / f ;
                 dBm = m_arrAmplitude[nInd];
                 //dBm_R2mW_m²(dBm, input, f, dBgain, dBcil, of) = 10 ^ ((dBm + input - dBgain + dBcil) / 10) * (pi4 / wavelength(f) ^ 2) * (1.0 - of)

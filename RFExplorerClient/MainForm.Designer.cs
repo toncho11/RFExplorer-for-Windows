@@ -250,7 +250,6 @@ namespace RFExplorerClient
             this.m_panelPowerChannel = new System.Windows.Forms.Panel();
             this.m_tabRemoteScreen = new System.Windows.Forms.TabPage();
             this.m_panelRemoteScreen = new System.Windows.Forms.Panel();
-            this.controlRemoteScreen = new RFEClientControls.RemoteScreenControl();
             this.m_tabConfiguration = new System.Windows.Forms.TabPage();
             this.m_panelGeneralConfigTab = new System.Windows.Forms.Panel();
             this.m_tableConfiguration = new System.Windows.Forms.TableLayoutPanel();
@@ -268,7 +267,6 @@ namespace RFExplorerClient
             this.labelReportFile = new System.Windows.Forms.Label();
             this.btnOpenLog = new System.Windows.Forms.Button();
             this.m_panelRFConnections = new System.Windows.Forms.Panel();
-            this.m_controlRFModuleSelectorConfig = new RFEClientControls.RFModuleSelector();
             this.m_groupSignalTypeConfiguration = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label23 = new System.Windows.Forms.Label();
@@ -332,6 +330,8 @@ namespace RFExplorerClient
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
             this.printDialog = new System.Windows.Forms.PrintDialog();
             this.zedRAWDecoder = new ZedGraph.ZedGraphControl();
+            this.controlRemoteScreen = new RFEClientControls.RemoteScreenControl();
+            this.m_controlRFModuleSelectorConfig = new RFEClientControls.RFModuleSelector();
             this.MainMenu.SuspendLayout();
             this.m_MainTab.SuspendLayout();
             this.m_tabSpectrumAnalyzer.SuspendLayout();
@@ -1658,18 +1658,6 @@ namespace RFExplorerClient
             this.m_panelRemoteScreen.Size = new System.Drawing.Size(912, 363);
             this.m_panelRemoteScreen.TabIndex = 55;
             // 
-            // controlRemoteScreen
-            // 
-            this.controlRemoteScreen.HeaderText = true;
-            this.controlRemoteScreen.LCDColor = true;
-            this.controlRemoteScreen.LCDGrid = true;
-            this.controlRemoteScreen.Location = new System.Drawing.Point(0, 0);
-            this.controlRemoteScreen.Margin = new System.Windows.Forms.Padding(4);
-            this.controlRemoteScreen.Name = "controlRemoteScreen";
-            this.controlRemoteScreen.RFExplorer = null;
-            this.controlRemoteScreen.Size = new System.Drawing.Size(292, 174);
-            this.controlRemoteScreen.TabIndex = 54;
-            // 
             // m_tabConfiguration
             // 
             this.m_tabConfiguration.Controls.Add(this.m_panelGeneralConfigTab);
@@ -1908,21 +1896,6 @@ namespace RFExplorerClient
             this.m_tableConfiguration.SetRowSpan(this.m_panelRFConnections, 3);
             this.m_panelRFConnections.Size = new System.Drawing.Size(220, 341);
             this.m_panelRFConnections.TabIndex = 8;
-            // 
-            // m_controlRFModuleSelectorConfig
-            // 
-            this.m_controlRFModuleSelectorConfig.ActualPictureHeight = 341;
-            this.m_controlRFModuleSelectorConfig.ActualPictureWidth = 162;
-            this.m_controlRFModuleSelectorConfig.AutoSize = true;
-            this.m_controlRFModuleSelectorConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.m_controlRFModuleSelectorConfig.BackColor = System.Drawing.Color.Transparent;
-            this.m_controlRFModuleSelectorConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_controlRFModuleSelectorConfig.Location = new System.Drawing.Point(0, 0);
-            this.m_controlRFModuleSelectorConfig.Margin = new System.Windows.Forms.Padding(4);
-            this.m_controlRFModuleSelectorConfig.Name = "m_controlRFModuleSelectorConfig";
-            this.m_controlRFModuleSelectorConfig.Size = new System.Drawing.Size(220, 341);
-            this.m_controlRFModuleSelectorConfig.TabIndex = 0;
-            this.m_controlRFModuleSelectorConfig.HideControl += new System.EventHandler(this.OnRFModuleSelectorConfig_HideControl);
             // 
             // m_groupSignalTypeConfiguration
             // 
@@ -2165,6 +2138,7 @@ namespace RFExplorerClient
             this.btnOpenAntennaConfigFile.TabIndex = 0;
             this.btnOpenAntennaConfigFile.Text = "Select";
             this.btnOpenAntennaConfigFile.UseVisualStyleBackColor = true;
+            this.btnOpenAntennaConfigFile.Click += new System.EventHandler(this.btnOpenAntennaConfigFile_Click);
             // 
             // m_panelIrradationChannel
             // 
@@ -2501,6 +2475,33 @@ namespace RFExplorerClient
             this.zedRAWDecoder.Size = new System.Drawing.Size(150, 150);
             this.zedRAWDecoder.TabIndex = 0;
             this.zedRAWDecoder.UseExtendedPrintDialog = true;
+            // 
+            // controlRemoteScreen
+            // 
+            this.controlRemoteScreen.HeaderText = true;
+            this.controlRemoteScreen.LCDColor = true;
+            this.controlRemoteScreen.LCDGrid = true;
+            this.controlRemoteScreen.Location = new System.Drawing.Point(0, 0);
+            this.controlRemoteScreen.Margin = new System.Windows.Forms.Padding(4);
+            this.controlRemoteScreen.Name = "controlRemoteScreen";
+            this.controlRemoteScreen.RFExplorer = null;
+            this.controlRemoteScreen.Size = new System.Drawing.Size(292, 174);
+            this.controlRemoteScreen.TabIndex = 54;
+            // 
+            // m_controlRFModuleSelectorConfig
+            // 
+            this.m_controlRFModuleSelectorConfig.ActualPictureHeight = 341;
+            this.m_controlRFModuleSelectorConfig.ActualPictureWidth = 162;
+            this.m_controlRFModuleSelectorConfig.AutoSize = true;
+            this.m_controlRFModuleSelectorConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_controlRFModuleSelectorConfig.BackColor = System.Drawing.Color.Transparent;
+            this.m_controlRFModuleSelectorConfig.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_controlRFModuleSelectorConfig.Location = new System.Drawing.Point(0, 0);
+            this.m_controlRFModuleSelectorConfig.Margin = new System.Windows.Forms.Padding(4);
+            this.m_controlRFModuleSelectorConfig.Name = "m_controlRFModuleSelectorConfig";
+            this.m_controlRFModuleSelectorConfig.Size = new System.Drawing.Size(220, 341);
+            this.m_controlRFModuleSelectorConfig.TabIndex = 0;
+            this.m_controlRFModuleSelectorConfig.HideControl += new System.EventHandler(this.OnRFModuleSelectorConfig_HideControl);
             // 
             // MainForm
             // 
