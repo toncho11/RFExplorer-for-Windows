@@ -344,7 +344,7 @@ namespace RFExplorerCommunicator
         public double GetIrradianceDBM()
         {
             double dBm = 0;//the antenna output in dBm
-            double input = 0; //input correction factor such as attenuation or amplification (in dB)
+            double correctionFactor = 0; //input correction factor such as attenuation or amplification (in dB)
             double f = 0; //frequency(in Hz)
             double dBgain = 0; //the antenna gain (in dB)
             double dBcil = 0;//cable insertion loss (cil, in dB)
@@ -354,7 +354,7 @@ namespace RFExplorerCommunicator
             long c = 299792458; //speed of light m/s
 
             //configure values
-            input = 0.0;
+            correctionFactor = 0.0; //TODO: ndCorrectionFactor.Value in MainForm
             of = 0.05;
             dBgain = (AntennaConfig != null && AntennaConfig.Count > 0) ? 0 : 5.0; //TODO: check with Marco
 
@@ -408,7 +408,7 @@ namespace RFExplorerCommunicator
                 w = c / f ;
                 dBm = m_arrAmplitude[nInd];
                 //dBm_R2mW_m²(dBm, input, f, dBgain, dBcil, of) = 10 ^ ((dBm + input - dBgain + dBcil) / 10) * (pi4 / wavelength(f) ^ 2) * (1.0 - of)
-                double tempIrradiance = Math.Pow( 10, (dBm + input - dBgain + dBcil) / 10) * (pi4 / w * w) * (1.0 - of);
+                double tempIrradiance = Math.Pow( 10, (dBm + correctionFactor - dBgain + dBcil) / 10) * (pi4 / w * w) * (1.0 - of);
                 fIrradiance += tempIrradiance;
             }
 

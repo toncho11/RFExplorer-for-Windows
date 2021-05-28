@@ -332,6 +332,11 @@ namespace RFExplorerClient
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
             this.printDialog = new System.Windows.Forms.PrintDialog();
             this.zedRAWDecoder = new ZedGraph.ZedGraphControl();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnOpenCableConfigFile = new System.Windows.Forms.Button();
+            this.txtBoxCableConfigFile = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.MainMenu.SuspendLayout();
             this.m_MainTab.SuspendLayout();
             this.m_tabSpectrumAnalyzer.SuspendLayout();
@@ -357,6 +362,7 @@ namespace RFExplorerClient
             this.m_MainStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMultiGraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSampleDecoder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -2131,6 +2137,11 @@ namespace RFExplorerClient
             // 
             // grpBoxConfigIrradiance
             // 
+            this.grpBoxConfigIrradiance.Controls.Add(this.numericUpDown2);
+            this.grpBoxConfigIrradiance.Controls.Add(this.label3);
+            this.grpBoxConfigIrradiance.Controls.Add(this.txtBoxCableConfigFile);
+            this.grpBoxConfigIrradiance.Controls.Add(this.btnOpenCableConfigFile);
+            this.grpBoxConfigIrradiance.Controls.Add(this.label2);
             this.grpBoxConfigIrradiance.Controls.Add(this.label1);
             this.grpBoxConfigIrradiance.Controls.Add(this.txtBoxAntennaConfigFile);
             this.grpBoxConfigIrradiance.Controls.Add(this.btnOpenAntennaConfigFile);
@@ -2503,6 +2514,47 @@ namespace RFExplorerClient
             this.zedRAWDecoder.TabIndex = 0;
             this.zedRAWDecoder.UseExtendedPrintDialog = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Cable config file";
+            // 
+            // btnOpenCableConfigFile
+            // 
+            this.btnOpenCableConfigFile.Location = new System.Drawing.Point(257, 43);
+            this.btnOpenCableConfigFile.Name = "btnOpenCableConfigFile";
+            this.btnOpenCableConfigFile.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenCableConfigFile.TabIndex = 4;
+            this.btnOpenCableConfigFile.Text = "Select";
+            this.btnOpenCableConfigFile.UseVisualStyleBackColor = true;
+            // 
+            // txtBoxCableConfigFile
+            // 
+            this.txtBoxCableConfigFile.Location = new System.Drawing.Point(109, 43);
+            this.txtBoxCableConfigFile.Name = "txtBoxCableConfigFile";
+            this.txtBoxCableConfigFile.Size = new System.Drawing.Size(142, 21);
+            this.txtBoxCableConfigFile.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 72);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Correction factor";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(109, 70);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(46, 21);
+            this.numericUpDown2.TabIndex = 7;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2567,6 +2619,7 @@ namespace RFExplorerClient
             this.m_MainStatusBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMultiGraph)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSampleDecoder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2795,6 +2848,11 @@ namespace RFExplorerClient
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtBoxAntennaConfigFile;
         private System.Windows.Forms.Button btnOpenAntennaConfigFile;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtBoxCableConfigFile;
+        private System.Windows.Forms.Button btnOpenCableConfigFile;
+        private System.Windows.Forms.Label label2;
     }
 }
 
